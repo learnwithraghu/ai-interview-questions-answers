@@ -18,8 +18,8 @@ This skill defines the standard operating procedure for managing the curriculum 
     *   `**Question:** [Full question text from questions.md]`
     *   `**Answer:**` You must structure the answer with exactly three sections in this order:
         1. **### 1. Concept Explanation:** Provide a clear, technical, and concise explanation of the concept (latency, architecture, context windows, etc.).
-        2. **### 2. Real-World Example on It:** Provide a concrete, real-world example of this concept in action (use cases, business scenarios, tool names).
-        3. **### 3. Presenting the Answer as if it Appears in the Interview:** Provide a rehearsed, articulate response that the user can directly say in an interview setting. Use a first-person perspective ("In my experience...").
+        2. **### 2. Real-World Example:** Provide a concrete, real-world example of this concept in action (use cases, business scenarios, tool names).
+        3. **### 3. This is how I would answer this:** Provide a rehearsed, concise response that the user can directly say in an interview setting. Keep it brief and punchy, avoiding over-explanation, exactly how someone would speak in a real interview. Use a first-person perspective ("In my experience...").
 
 ### 3. Synchronizing the README.md (CRITICAL)
 *   **Rule:** The `README.md` must *always* remain perfectly synchronized with `questions.md`. 
