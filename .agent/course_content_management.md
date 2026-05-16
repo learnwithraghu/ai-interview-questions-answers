@@ -1,0 +1,30 @@
+# Course Content Management Skill
+
+## Description
+This skill defines the standard operating procedure for managing the curriculum of the "AI Engineer Interview Bootcamp" repository. It must be followed whenever you are adding new questions, writing answers, or modifying existing course content.
+
+## Instructions
+
+### 1. Creating New Questions
+*   When generating or adding new interview questions, place them in the correct section within `questions.md`.
+*   Ensure questions are formatted as a single, direct inquiry (avoid multi-part questions in a single bullet).
+*   Always include a difficulty level tag at the start: `**[Easy]**`, `**[Medium]**`, or `**[Hard]**`.
+
+### 2. Writing Answers
+*   Every question must have a corresponding answer file in the `answers/category_<number>/` directory.
+*   File naming convention: Use a two-digit number corresponding to the question number (e.g., `07.md`, `12.md`).
+*   **Answer File Structure:**
+    *   H1 Heading: `# Question X: [Brief Topic]`
+    *   `**Question:** [Full question text from questions.md]`
+    *   `**Answer:**` You must structure the answer with exactly three sections in this order:
+        1. **### 1. Concept Explanation:** Provide a clear, technical, and concise explanation of the concept (latency, architecture, context windows, etc.).
+        2. **### 2. Real-World Example on It:** Provide a concrete, real-world example of this concept in action (use cases, business scenarios, tool names).
+        3. **### 3. Presenting the Answer as if it Appears in the Interview:** Provide a rehearsed, articulate response that the user can directly say in an interview setting. Use a first-person perspective ("In my experience...").
+
+### 3. Synchronizing the README.md (CRITICAL)
+*   **Rule:** The `README.md` must *always* remain perfectly synchronized with `questions.md`. 
+*   Whenever a question is added, removed, or changed in `questions.md`, you must update the "Course Curriculum" list in `README.md`.
+*   **Lecture Title Format:** Translate the question into a lecture title. 
+    *   Format: `* **Lecture X:** [Title]`
+    *   **Constraint:** The title must be highly concise, strictly **4 to 5 words maximum**.
+    *   **Constraint:** Focus on professional interview preparation. Do NOT use cliché or hype words such as "mastering", "zero to hero", "demystifying", or "ultimate".
