@@ -17,7 +17,7 @@ This skill defines the standard operating procedure for managing the curriculum 
     *   H1 Heading: `# Question X: [Brief Topic]`
     *   `**Question:** [Full question text from questions.md]`
     *   `**Answer:**` You must structure the answer with exactly four sections in this order:
-        1. **### 1. Question Explanation:** Explain the "why" behind the question (around 100 words). The tone MUST be conversational and direct, as if you are an instructor speaking to your students in a video course (e.g., "Alright guys, when the interviewer asks you this, what they are really looking for is..."). What is the interviewer actually trying to figure out about the candidate? What red flags are they looking for?
+        1. **### 1. Question Explanation:** Explain the "why" behind the question (around 100 words). The tone MUST be conversational and direct, as if you are an instructor speaking to your students in a video course (e.g., "Alright, when the interviewer asks you this, what they are really looking for is..."). What is the interviewer actually trying to figure out about the candidate? What red flags are they looking for?
         2. **### 2. Concept Explanation:** Provide a clear, technical, and concise explanation of the concept (latency, architecture, context windows, etc.).
         3. **### 3. Real-World Example:** Provide a concrete, real-world example of this concept in action (use cases, business scenarios, tool names).
         4. **### 4. This is how I would answer this:** Provide a rehearsed, concise response that the user can directly say in an interview setting. Keep it brief and punchy, avoiding over-explanation, exactly how someone would speak in a real interview. Use a first-person perspective ("In my experience...").
