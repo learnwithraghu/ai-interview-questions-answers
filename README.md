@@ -12,7 +12,7 @@ Below is the curriculum structure, including the engaging lecture titles that co
 *Building a strong fundamental understanding of how LLMs and AI systems work under the hood.*
 
 * **Lecture 1:** System, User, Assistant Prompts
-* **Lecture 2:** Role of LLM Temperature
+* **Lecture 2:** Few-Shot vs Zero-Shot
 * **Lecture 3:** Dense Retrieval in RAG
 * **Lecture 4:** LoRA in Fine-Tuning
 * **Lecture 5:** The ReAct Framework
