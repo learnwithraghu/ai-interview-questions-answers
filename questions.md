@@ -12,7 +12,8 @@ Question bank for the AI Engineer Interview Bootcamp. Questions marked **(Active
    - *Alternative:* What is the role of temperature in LLM generation?
    - *Alternative:* Explain the concept of tokenization and how it directly affects LLM API pricing and context window limits.
 
-3. **[Medium]** How does dense retrieval work in RAG pipelines, and what makes it more effective than keyword-based search for semantic queries? **(Active)**
+3. **[Medium]** What is Retrieval-Augmented Generation (RAG)? **(Active)**
+   - *Alternative:* How does dense retrieval work in RAG pipelines, and what makes it more effective than keyword-based search for semantic queries?
    - *Alternative:* What is Retrieval-Augmented Generation (RAG), and why is it generally preferred over fine-tuning for giving an LLM access to proprietary company data?
 
 4. **[Medium]** What is the purpose of Low-Rank Adaptation (LoRA) in fine-tuning? **(Active)**
@@ -71,3 +72,5 @@ Question bank for the AI Engineer Interview Bootcamp. Questions marked **(Active
 24. **[Hard]** You need to build a complex, multi-agent workflow where a "researcher" agent gathers data and a "writer" agent drafts a report. How do you manage state, memory, and routing using frameworks like LangGraph or AutoGen? **(Active)**
 
 25. **[Hard]** How do you handle caching LLM responses to reduce API costs and latency? Explain the architectural difference between exact-match caching and semantic caching. **(Active)**
+
+26. **[Medium]** Where should inference run — browser, edge, server — and why? **(Active)**
