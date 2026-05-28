@@ -12,7 +12,7 @@ Question bank for the AI Engineer Interview Bootcamp.
 
 3. **[Medium]** What is the difference between input tokens and output tokens in LLM APIs?
 
-4. **[Medium]** What is the purpose of Low-Rank Adaptation (LoRA) in fine-tuning?
+4. **[Medium]** What is a `.agent` folder in a GitHub repository and what value does it add?
 
 5. **[Hard]** What is ReAct concept in LLM?
 
