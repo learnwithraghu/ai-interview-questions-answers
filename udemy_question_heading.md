@@ -13,7 +13,7 @@
 | 1 | System User and Assistant Prompts |
 | 2 | Few Shot Versus Zero Shot |
 | 3 | Input Tokens Versus Output Tokens |
-| 4 | Agent Folder In GitHub Repos |
+| 4 | Purpose Of AGENTS.md In Repos |
 | 5 | What Is the ReAct Framework |
 | 6 | Transformer Architecture Role In LLMs |
 
