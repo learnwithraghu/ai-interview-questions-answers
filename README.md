@@ -13,7 +13,7 @@ Below is the curriculum structure, including the engaging lecture titles that co
 
 * **Lecture 1:** System User and Assistant Prompts
 * **Lecture 2:** Few Shot Versus Zero Shot
-* **Lecture 3:** What Is Retrieval Augmented Generation
+* **Lecture 3:** Input Tokens Versus Output Tokens
 * **Lecture 4:** LoRA In LLM Fine Tuning
 * **Lecture 5:** What Is the ReAct Framework
 * **Lecture 6:** Transformer Architecture Role In LLMs

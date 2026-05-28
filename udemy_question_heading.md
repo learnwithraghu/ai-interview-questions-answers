@@ -4,63 +4,56 @@
 
 **Rules:** Each heading is **exactly 4–5 words** (never more). Professional tone. No hype words ("mastering", "ultimate", "demystifying", etc.).
 
-Only **(Active)** questions map to published lectures. Alternatives include headings for when you swap a slot.
-
 ---
 
 ### Section 1: Core GenAI Concepts & Foundations
 
-| # | Status | Udemy Heading |
-|---|--------|---------------|
-| 1 | Active | System User and Assistant Prompts |
-| 2 | Active | Few Shot Versus Zero Shot |
-| 2 | Alternative | Role of Temperature in LLMs |
-| 2 | Alternative | Tokenization Pricing and Context Limits |
-| 3 | Active | What Is Retrieval Augmented Generation |
-| 3 | Alternative | Dense Retrieval Versus Keyword Search |
-| 3 | Alternative | RAG Versus Fine Tuning Tradeoffs |
-| 4 | Active | LoRA In LLM Fine Tuning |
-| 5 | Active | What Is the ReAct Framework |
-| 6 | Active | Transformer Architecture Role In LLMs |
-| 6 | Alternative | Semantic Chunking Versus Fixed Chunking |
+| # | Udemy Heading |
+|---|---------------|
+| 1 | System User and Assistant Prompts |
+| 2 | Few Shot Versus Zero Shot |
+| 3 | Input Tokens Versus Output Tokens |
+| 4 | LoRA In LLM Fine Tuning |
+| 5 | What Is the ReAct Framework |
+| 6 | Transformer Architecture Role In LLMs |
 
 ---
 
 ### Section 2: Real-World Scenario Architecture
 
-| # | Status | Udemy Heading |
-|---|--------|---------------|
-| 7 | Active | Extracting Valid JSON From Emails |
-| 8 | Active | Debugging RAG Retrieval Versus Generation |
-| 9 | Active | Natural Language To SQL Reliably |
-| 10 | Active | Designing Safe LLM Tool Calling |
-| 11 | Active | Advanced RAG Retrieval Strategy Options |
-| 12 | Active | Automated LLM Evaluation At Scale |
+| # | Udemy Heading |
+|---|---------------|
+| 7 | Extracting Valid JSON From Emails |
+| 8 | Debugging RAG Retrieval Versus Generation |
+| 9 | Natural Language To SQL Reliably |
+| 10 | Designing Safe LLM Tool Calling |
+| 11 | Advanced RAG Retrieval Strategy Options |
+| 12 | Automated LLM Evaluation At Scale |
 
 ---
 
 ### Section 3: Production Incidents & Reliability
 
-| # | Status | Udemy Heading |
-|---|--------|---------------|
-| 13 | Active | Stopping Prompt Injection Attack Immediately |
-| 14 | Active | Managing LLM Context Window Limits |
-| 15 | Active | API Rate Limit Fallback Strategies |
-| 16 | Active | Securing AI Agent Function Calling |
-| 17 | Active | Filtering Hallucinated Citations In Production |
-| 18 | Active | Graceful Degradation When Retrieval Fails |
+| # | Udemy Heading |
+|---|---------------|
+| 13 | Stopping Prompt Injection Attack Immediately |
+| 14 | Managing LLM Context Window Limits |
+| 15 | API Rate Limit Fallback Strategies |
+| 16 | Securing AI Agent Function Calling |
+| 17 | Filtering Hallucinated Citations In Production |
+| 18 | Graceful Degradation When Retrieval Fails |
 
 ---
 
 ### Section 4: Modern AI Stack & Tooling
 
-| # | Status | Udemy Heading |
-|---|--------|---------------|
-| 19 | Active | Managed API Versus Open Weight |
-| 20 | Active | When To Skip LangChain Frameworks |
-| 21 | Active | Dedicated Vector DB Versus pgvector |
-| 22 | Active | LLM Observability Tools And Metrics |
-| 23 | Active | Function Calling With External REST |
-| 24 | Active | Multi Agent Workflow State Management |
-| 25 | Active | Exact Match Versus Semantic Caching |
-| 26 | Active | Browser Edge Or Server Inference |
+| # | Udemy Heading |
+|---|---------------|
+| 19 | Managed API Versus Open Weight |
+| 20 | When To Skip LangChain Frameworks |
+| 21 | Dedicated Vector DB Versus pgvector |
+| 22 | LLM Observability Tools And Metrics |
+| 23 | Function Calling With External REST |
+| 24 | Multi Agent Workflow State Management |
+| 25 | Exact Match Versus Semantic Caching |
+| 26 | Browser Edge Or Server Inference |
