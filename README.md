@@ -16,7 +16,7 @@ Below is the curriculum structure, including the engaging lecture titles that co
 * **Lecture 3:** Input Tokens Versus Output Tokens
 * **Lecture 4:** Purpose Of AGENTS.md In Repos
 * **Lecture 5:** What Is the ReAct Framework
-* **Lecture 6:** Transformer Architecture Role In LLMs
+* **Lecture 6:** Hallucinations In AI Coding Workflows
 
 ### Section 2: Real-World Scenario Architecture
 *Tackling practical, system-design challenges commonly seen in enterprise AI applications.*

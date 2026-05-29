@@ -15,7 +15,7 @@
 | 3 | Input Tokens Versus Output Tokens |
 | 4 | Purpose Of AGENTS.md In Repos |
 | 5 | What Is the ReAct Framework |
-| 6 | Transformer Architecture Role In LLMs |
+| 6 | Hallucinations In AI Coding Workflows |
 
 ---
 

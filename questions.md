@@ -16,7 +16,7 @@ Question bank for the AI Engineer Interview Bootcamp.
 
 5. **[Hard]** What is ReAct concept in LLM?
 
-6. **[Hard]** What is the role of the Transformer architecture in modern LLMs?
+6. **[Medium]** In your AI coding experience, what is an example of an LLM hallucination you saw, and why do you think it happened?
 
 ---
 
