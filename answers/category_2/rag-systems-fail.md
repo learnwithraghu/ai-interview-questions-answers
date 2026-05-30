@@ -1,4 +1,4 @@
-# Question 9: RAG Systems Fail Independently
+# Question 8: RAG Systems Fail Independently
 
 **Question:** In a RAG system, why should retrieval and generation be treated as two separate systems that can fail independently?
 

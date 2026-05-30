@@ -1,4 +1,4 @@
-# Question 8: Debugging RAG Retrieval
+# Question 9: Debugging RAG Retrieval
 
 **Question:** You are building a document Q&A bot. Users complain that the bot says "I don't know" even when the answer is clearly in the document. How do you troubleshoot whether the failure is in the retrieval step or the generation step?
 

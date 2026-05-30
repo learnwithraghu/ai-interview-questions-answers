@@ -24,8 +24,8 @@
 | # | Udemy Heading |
 |---|---------------|
 | 7 | Extracting Valid JSON From Emails |
-| 8 | Debugging RAG Retrieval Versus Generation |
-| 9 | RAG Systems Fail Independently |
+| 8 | RAG Systems Fail Independently |
+| 9 | Debugging RAG Retrieval Versus Generation |
 | 10 | Natural Language To SQL Reliably |
 | 11 | Designing Safe LLM Tool Calling |
 | 12 | Advanced RAG Retrieval Strategy Options |

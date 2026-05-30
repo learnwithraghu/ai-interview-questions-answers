@@ -24,9 +24,9 @@ Question bank for the AI Engineer Interview Bootcamp.
 
 7. **[Easy]** You need to extract structured JSON data (like user profiles) from unstructured customer emails. How would you design the prompt and API call to guarantee valid JSON output?
 
-8. **[Medium]** You are building a document Q&A bot. Users complain that the bot says "I don't know" even when the answer is clearly in the document. How do you troubleshoot whether the failure is in the retrieval step or the generation step?
+8. **[Medium]** In a RAG system, why should retrieval and generation be treated as two separate systems that can fail independently?
 
-9. **[Medium]** In a RAG system, why should retrieval and generation be treated as two separate systems that can fail independently?
+9. **[Medium]** You are building a document Q&A bot. Users complain that the bot says "I don't know" even when the answer is clearly in the document. How do you troubleshoot whether the failure is in the retrieval step or the generation step?
 
 10. **[Medium]** Your application uses an LLM to generate SQL queries from natural language. How do you handle database schema changes and prevent the LLM from hallucinating column names?
 
