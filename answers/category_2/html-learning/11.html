@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:,">
+  <title>Designing Safe LLM Tool Calling</title>
+  <style>
+    *{box-sizing:border-box}:root{--ink:#172033;--muted:#64748b;--blue:#2563eb;--orange:#ea580c;--green:#16a34a;--red:#dc2626;--paper:#fffef7;--line:#1e293b}html,body{width:100%;height:100%;margin:0;overflow:hidden}body{font-family:"Trebuchet MS",Arial,sans-serif;color:var(--ink);background:#fbfdff radial-gradient(#cbd5e1 1px,transparent 1px) 0 0/26px 26px}.deck{position:relative;width:100vw;height:100dvh;overflow:hidden}.slide{position:absolute;inset:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:clamp(8px,1.8vw,18px);padding:clamp(16px,4vw,44px) clamp(56px,8vw,90px);opacity:0;pointer-events:none;transform:translateX(22px) scale(.98);transition:.28s ease}.slide.active{opacity:1;pointer-events:auto;transform:none}.eyebrow{margin:0;color:var(--blue);font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(.7rem,1.5vw,.9rem)}h1,h2{margin:0;line-height:.96;letter-spacing:-.05em}h1{font-size:clamp(1.35rem,4.3vw,4.1rem);max-width:15ch}h2{font-size:clamp(1.45rem,4vw,3.4rem)}.hint,.end-note{margin:0;color:var(--muted);font-size:clamp(.86rem,1.75vw,1.05rem);line-height:1.35}.board{min-height:0;display:grid;place-items:center;border:3px solid var(--line);border-radius:28px 18px 30px 20px;background:rgba(255,255,255,.92);box-shadow:8px 8px 0 rgba(15,23,42,.08);padding:clamp(12px,2.6vw,28px);overflow:hidden}.explain-board{grid-template-rows:minmax(0,1fr) auto;gap:clamp(8px,1.4vw,14px);align-items:center}.explain-board .explain{width:min(920px,100%);padding:clamp(8px,1.5vw,14px);border:2px dashed #94a3b8;border-radius:18px;background:#f8fafc;color:#334155;box-shadow:3px 3px 0 rgba(15,23,42,.05);display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:clamp(6px,1vw,10px)}.explain span{display:grid;align-content:center;min-height:clamp(42px,7vh,70px);padding:clamp(7px,1.2vw,11px);border:2px solid #cbd5e1;border-radius:14px;background:white;text-align:left;font-weight:800;line-height:1.22}.explain strong{color:var(--line);font-weight:900}.tool-split{width:min(840px,100%);display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(10px,2vw,18px);align-items:center}.split-box{border:3px solid var(--line);border-radius:20px;padding:clamp(10px,2vw,18px);font-weight:800;font-size:clamp(.78rem,1.5vw,.95rem);line-height:1.5;box-shadow:4px 4px 0 rgba(15,23,42,.06)}.split-divider{text-align:center;font-size:clamp(1.5rem,4vw,3.5rem);font-weight:900;color:var(--muted)}.flow-row{width:min(820px,100%);display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(6px,1.2vw,10px);align-items:center}.flow-box{border:3px solid var(--line);border-radius:14px;padding:clamp(8px,1.5vw,12px);text-align:center;font-weight:900;font-size:clamp(.7rem,1.4vw,.88rem);box-shadow:3px 3px 0 rgba(15,23,42,.06)}.flow-arrow{text-align:center;font-size:clamp(1.2rem,3vw,2.5rem);font-weight:900}.question{width:min(900px,100%);font-size:clamp(1.05rem,3vw,2.45rem);line-height:1.22;text-align:center;font-weight:900}.quote{width:min(900px,100%);font-size:clamp(.9rem,2.3vw,1.7rem);line-height:1.35;text-align:center;font-weight:800}.quote em{font-style:normal;color:var(--blue)}.nav{position:absolute;top:50%;translate:0 -50%;width:clamp(38px,5vw,58px);height:clamp(38px,5vw,58px);border:3px solid var(--line);border-radius:50%;background:white;color:var(--line);font-size:clamp(1.3rem,3vw,2rem);font-weight:900;cursor:pointer;z-index:5}.nav:disabled{opacity:.35;cursor:not-allowed}.prev{left:12px}.next{right:12px}.progress{position:absolute;left:50%;bottom:12px;translate:-50% 0;background:#0f172a;color:white;border-radius:999px;padding:7px 13px;font-weight:900;font-size:.85rem;z-index:5}.linkedin{position:absolute;right:14px;top:22%;width:clamp(34px,4.5vw,50px);height:clamp(34px,4.5vw,50px);display:grid;place-items:center;border-radius:14px;background:#0a66c2;color:white;box-shadow:4px 4px 0 rgba(15,23,42,.12);z-index:6}.linkedin svg{width:62%;height:62%;fill:currentColor}@media(max-width:720px){.slide{padding:14px 50px 46px}.tool-split{grid-template-columns:1fr}.split-divider{transform:rotate(90deg)}.flow-row{grid-template-columns:1fr}.flow-arrow{transform:rotate(90deg)}.linkedin{top:10px;right:10px}.board{padding:10px}}
+  </style>
+</head>
+<body>
+  <main class="deck" data-deck>
+    <a class="linkedin" href="https://www.linkedin.com/in/raghunandana-krishnamurthy-664264b7/" target="_blank" rel="noopener" aria-label="Built by Raghunandana KrishnaMurthy Sanur on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4v16h-4V8zm7.5 0h3.8v2.2h.06c.53-1 1.84-2.2 3.79-2.2 4.05 0 4.8 2.67 4.8 6.14V24h-4v-8.74c0-2.08-.04-4.76-2.9-4.76-2.9 0-3.35 2.27-3.35 4.61V24h-4V8z"/></svg></a>
+
+    <section class="slide active" data-slide>
+      <div><p class="eyebrow">Question 11</p><h1>Safe Tool Calling Design</h1></div>
+      <div class="board"><p class="question">A stakeholder wants an LLM application that can search the web, query an internal database, and send an email. How do you design the tool-calling architecture to route these intents reliably and safely?</p></div>
+      <p class="hint">The LLM routes — your code executes. Safety depends on what you allow to auto-run.</p>
+    </section>
+
+    <section class="slide" data-slide>
+      <div><p class="eyebrow">Visual Explanation</p><h2>Classify tools by reversibility</h2></div>
+      <div class="board explain-board">
+        <div class="tool-split">
+          <div class="split-box" style="border-color:var(--green);background:#dcfce7">
+            <div style="color:#15803d;font-size:clamp(.9rem,2vw,1.2rem);margin-bottom:8px">Read-Only / Reversible</div>
+            🔍 Web search<br>
+            🗄️ Database read<br>
+            🌤️ Weather lookup<br><br>
+            <strong>Auto-execute ✓</strong><br>
+            Worst case: a wasted API call
+          </div>
+          <div class="split-divider">vs</div>
+          <div class="split-box" style="border-color:var(--red);background:#fef2f2">
+            <div style="color:var(--red);font-size:clamp(.9rem,2vw,1.2rem);margin-bottom:8px">Write / Irreversible</div>
+            📧 Send email<br>
+            💳 Make payment<br>
+            🗑️ Delete record<br><br>
+            <strong>Human-in-Loop gate ⚠</strong><br>
+            Always confirm before executing
+          </div>
+        </div>
+        <div class="explain" data-explain>
+          <span><strong>LLM is the router:</strong> it decides which tool to call and what arguments to pass — your code actually runs the function.</span>
+          <span><strong>You're always in control:</strong> the model never executes code directly — it returns a JSON decision, you act on it.</span>
+          <span><strong>Classification is the key design decision:</strong> get this wrong and your agent sends emails it shouldn't.</span>
+          <span><strong>HITL gate:</strong> pause execution, show the user exactly what the agent is about to do, require explicit approval.</span>
+          <span><strong>Argument validation:</strong> validate the LLM's returned arguments against the tool schema before running anything.</span>
+          <span><strong>Loop guard:</strong> set a max iteration count (e.g. 10 steps) — agents can loop indefinitely if a tool call keeps failing.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-slide>
+      <div><p class="eyebrow">Visual Explanation</p><h2>Tool call execution flow</h2></div>
+      <div class="board explain-board">
+        <div class="flow-row">
+          <div class="flow-box" style="border-color:var(--orange);background:#fff7ed">User Message</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box" style="border-color:var(--blue);background:#dbeafe">LLM decides tool + args<br><small style="color:#64748b">JSON output only</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box" style="border-color:#7c3aed;background:#f3e8ff">Validate args<br><small style="color:#64748b">schema check</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box" style="border-color:var(--red);background:#fef2f2">HITL if irreversible<br><small style="color:#64748b">confirm gate</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box" style="border-color:var(--green);background:#dcfce7">Execute + log<br><small style="color:#64748b">audit trail</small></div>
+        </div>
+        <div class="explain" data-explain>
+          <span><strong>Step 3 — validate:</strong> LLMs occasionally hallucinate argument names or pass wrong types — catch it before runtime errors.</span>
+          <span><strong>Step 4 — HITL:</strong> for send_email, show the to/subject/body and require a click — not just a model decision.</span>
+          <span><strong>Audit log:</strong> record every tool call, arguments, and outcome for compliance and debugging — especially for email and payments.</span>
+          <span><strong>Sales AI example:</strong> web search and CRM reads run automatically; send_email shows a confirmation modal first.</span>
+          <span><strong>Tool descriptions matter:</strong> write precise, unambiguous tool descriptions — the LLM uses them to route, so vague names cause misfires.</span>
+          <span><strong>Separate executors:</strong> each tool is an independent function your code controls — never let the LLM run arbitrary shell commands.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-slide>
+      <div><p class="eyebrow">Answer</p><h2>Say it</h2></div>
+      <div class="board"><p class="quote">"I'd define each capability as a function with a strict JSON schema and register them with the tool-calling API. For routing, the model decides which tool to call — I don't hardcode routing logic. The key design decision is safety: for <em>read-only actions</em> like web search or DB queries, I execute automatically. For anything <em>irreversible like sending an email</em>, I always insert a human-in-the-loop confirmation step. I also validate all tool arguments and log every call for auditability."</p></div>
+      <p class="end-note">End: this deck stops here. Use the left arrow to review earlier slides.</p>
+    </section>
+
+    <button class="nav prev" type="button" aria-label="Previous slide">&lsaquo;</button>
+    <button class="nav next" type="button" aria-label="Next slide">&rsaquo;</button>
+    <div class="progress" aria-live="polite">1 / 4</div>
+  </main>
+  <script>const slides=[...document.querySelectorAll('[data-slide]')],progress=document.querySelector('.progress'),prev=document.querySelector('.prev'),next=document.querySelector('.next');let index=0;function show(i){index=Math.max(0,Math.min(i,slides.length-1));slides.forEach((s,n)=>s.classList.toggle('active',n===index));progress.textContent=`${index+1} / ${slides.length}`;prev.disabled=index===0;next.disabled=index===slides.length-1}prev.onclick=()=>show(index-1);next.onclick=()=>show(index+1);addEventListener('keydown',e=>{if(e.key==='ArrowLeft')show(index-1);if(e.key==='ArrowRight')show(index+1)});show(0);</script>
+</body>
+</html>
