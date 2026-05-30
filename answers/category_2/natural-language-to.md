@@ -1,4 +1,4 @@
-# Question 9: Text-to-SQL Challenges
+# Question 10: Text-to-SQL Challenges
 
 **Question:** Your application uses an LLM to generate SQL queries from natural language. How do you handle database schema changes and prevent the LLM from hallucinating column names?
 

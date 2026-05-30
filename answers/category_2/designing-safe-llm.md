@@ -1,4 +1,4 @@
-# Question 10: Tool Routing and Function Calling
+# Question 11: Tool Routing and Function Calling
 
 **Question:** A stakeholder wants an LLM application that can search the web, query an internal database, and send an email. How do you design the tool-calling/function-calling architecture to route these intents reliably and safely?
 

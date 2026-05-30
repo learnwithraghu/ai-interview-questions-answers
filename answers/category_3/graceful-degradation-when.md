@@ -1,4 +1,4 @@
-# Question 18: Vector Database Failures
+# Question 19: Vector Database Failures
 
 **Question:** Your vector database goes down, breaking the semantic search feature of your application. How do you design a highly available GenAI architecture that gracefully degrades when retrieval fails?
 

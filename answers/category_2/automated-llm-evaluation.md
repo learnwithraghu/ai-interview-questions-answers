@@ -1,4 +1,4 @@
-# Question 12: LLM-as-a-Judge Evaluation
+# Question 13: LLM-as-a-Judge Evaluation
 
 **Question:** You are evaluating two different LLMs for a summarization task. One is cheaper but potentially less accurate. How do you set up an automated evaluation pipeline (e.g., using LLM-as-a-judge) to quantify the trade-off at scale?
 

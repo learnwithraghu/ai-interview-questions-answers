@@ -1,4 +1,4 @@
-# Question 21: Dedicated Vector DB vs pgvector
+# Question 22: Dedicated Vector DB vs pgvector
 
 **Question:** Compare the trade-offs of using a dedicated Vector Database (e.g., Pinecone, Weaviate) versus using vector extensions in a traditional relational database (e.g., `pgvector` in PostgreSQL).
 

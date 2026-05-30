@@ -23,29 +23,30 @@ Below is the curriculum structure, including the engaging lecture titles that co
 
 * **Lecture 7:** Extracting Valid JSON From Emails
 * **Lecture 8:** Debugging RAG Retrieval Versus Generation
-* **Lecture 9:** Natural Language To SQL Reliably
-* **Lecture 10:** Designing Safe LLM Tool Calling
-* **Lecture 11:** Advanced RAG Retrieval Strategy Options
-* **Lecture 12:** Automated LLM Evaluation At Scale
+* **Lecture 9:** RAG Systems Fail Independently
+* **Lecture 10:** Natural Language To SQL Reliably
+* **Lecture 11:** Designing Safe LLM Tool Calling
+* **Lecture 12:** Advanced RAG Retrieval Strategy Options
+* **Lecture 13:** Automated LLM Evaluation At Scale
 
 ### Section 3: Production Incidents & Reliability
 *Learning how to handle failures, security threats, and scaling issues when your AI goes live.*
 
-* **Lecture 13:** Stopping Prompt Injection Attack Immediately
-* **Lecture 14:** Managing LLM Context Window Limits
-* **Lecture 15:** API Rate Limit Fallback Strategies
-* **Lecture 16:** Securing AI Agent Function Calling
-* **Lecture 17:** Filtering Hallucinated Citations In Production
-* **Lecture 18:** Graceful Degradation When Retrieval Fails
+* **Lecture 14:** Stopping Prompt Injection Attack Immediately
+* **Lecture 15:** Managing LLM Context Window Limits
+* **Lecture 16:** API Rate Limit Fallback Strategies
+* **Lecture 17:** Securing AI Agent Function Calling
+* **Lecture 18:** Filtering Hallucinated Citations In Production
+* **Lecture 19:** Graceful Degradation When Retrieval Fails
 
 ### Section 4: Modern AI Stack & Tooling
 *Navigating the rapidly evolving ecosystem of frameworks, databases, and deployment platforms.*
 
-* **Lecture 19:** Managed API Versus Open Weight
-* **Lecture 20:** When To Skip LangChain Frameworks
-* **Lecture 21:** Dedicated Vector DB Versus pgvector
-* **Lecture 22:** LLM Observability Tools And Metrics
-* **Lecture 23:** Function Calling With External REST
-* **Lecture 24:** Multi Agent Workflow State Management
-* **Lecture 25:** Exact Match Versus Semantic Caching
-* **Lecture 26:** Browser Edge Or Server Inference
+* **Lecture 20:** Managed API Versus Open Weight
+* **Lecture 21:** When To Skip LangChain Frameworks
+* **Lecture 22:** Dedicated Vector DB Versus pgvector
+* **Lecture 23:** LLM Observability Tools And Metrics
+* **Lecture 24:** Function Calling With External REST
+* **Lecture 25:** Multi Agent Workflow State Management
+* **Lecture 26:** Exact Match Versus Semantic Caching
+* **Lecture 27:** Browser Edge Or Server Inference

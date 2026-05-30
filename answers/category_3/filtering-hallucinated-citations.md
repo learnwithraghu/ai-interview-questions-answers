@@ -1,4 +1,4 @@
-# Question 17: Mitigating Hallucinated Citations
+# Question 18: Mitigating Hallucinated Citations
 
 **Question:** Users report that your LLM app occasionally hallucinates highly realistic but fake citations and URLs. How do you detect, mitigate, and filter hallucinated facts in a production pipeline before the user sees them?
 

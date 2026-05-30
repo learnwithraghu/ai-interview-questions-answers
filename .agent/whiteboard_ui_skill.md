@@ -63,6 +63,8 @@ Design for every screen size first. Nothing should overlap, clip, or require pag
 - Use `clamp()` for type, spacing, diagram nodes, and controls.
 - Keep each slide's visible text short enough to fit on mobile without vertical scrolling.
 - Keep slide 2 and slide 3 explanation copy between 50 and 75 words each.
+- Place slide 2 and slide 3 explanation copy inside the main visual box, below or beside the diagram. Do not float the explanation outside the board.
+- Prefer annotation chips, labels, callout bubbles, or mini decision cards over a single paragraph. The explanation should read like part of the diagram.
 - Use `minmax(0, 1fr)`, `max-width`, and percentage widths instead of fixed screen assumptions.
 - Use `overflow-wrap: anywhere` for code-like labels and long URLs.
 - Keep controls in safe zones: arrows at horizontal edges, progress at bottom center, LinkedIn mark at right center.
@@ -92,6 +94,7 @@ Prefer a clean academic-illustration aesthetic:
 Avoid:
 
 - Dense paragraph dumps.
+- Caption-like explanation paragraphs that simply sit under the diagram.
 - Tiny text.
 - Large blocks copied from the markdown answer.
 - Decorative elements that reduce readability.
@@ -114,14 +117,24 @@ Avoid:
 
   <section class="slide" data-slide>
     <h2>Visual explanation</h2>
-    <div class="diagram"><!-- visual metaphor first --></div>
-    <p class="explain">50 to 75 words explaining the diagram.</p>
+    <div class="board explain-board">
+      <div class="diagram"><!-- visual metaphor first --></div>
+      <div class="explain" data-explain>
+        <span><strong>Signal:</strong> short annotation chip.</span>
+        <span><strong>Rule:</strong> another scan-friendly chip.</span>
+      </div>
+    </div>
   </section>
 
   <section class="slide" data-slide>
     <h2>Visual explanation</h2>
-    <div class="diagram"><!-- second visual angle --></div>
-    <p class="explain">50 to 75 words explaining the diagram.</p>
+    <div class="board explain-board">
+      <div class="diagram"><!-- second visual angle --></div>
+      <div class="explain" data-explain>
+        <span><strong>Watch:</strong> visual callout.</span>
+        <span><strong>Fix:</strong> visual callout.</span>
+      </div>
+    </div>
   </section>
 
   <section class="slide" data-slide>
@@ -149,6 +162,7 @@ Before finishing HTML learning pages:
 - Confirm the right arrow stops on slide 4 instead of wrapping to slide 1.
 - Confirm the left arrow can navigate back from slide 4.
 - Confirm slide 2 and slide 3 each have 50-75 words of explanation.
+- Confirm slide 2 and slide 3 explanations are inside the bordered visual box, split into visual annotation chips, and do not overlap the diagram.
 - Confirm slide 4 includes a small end note.
 - Confirm the page works without network access.
 - Confirm each page uses only details from its matching answer markdown file.

@@ -1,4 +1,4 @@
-# Question 13: Stopping Rogue Chatbots
+# Question 14: Stopping Rogue Chatbots
 
 **Question:** Your customer-facing chatbot suddenly starts ignoring its system instructions and answering inappropriate questions. What is likely happening, and how do you stop it immediately?
 

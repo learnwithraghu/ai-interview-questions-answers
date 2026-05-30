@@ -1,4 +1,4 @@
-# Question 22: LLM Observability and Tracing
+# Question 23: LLM Observability and Tracing
 
 **Question:** What is the purpose of LLM observability and tracing tools (e.g., Langfuse, Helicone, LangSmith)? What specific metrics are critical to track for a GenAI application?
 

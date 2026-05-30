@@ -1,4 +1,4 @@
-# Question 19: Managed API vs Open-Weight Models
+# Question 20: Managed API vs Open-Weight Models
 
 **Question:** What are the main differences between using a managed LLM API (like OpenAI GPT-4 or Anthropic Claude) versus accessing an open-weight model (like Llama 3) hosted on a cloud provider like Groq or Together AI?
 

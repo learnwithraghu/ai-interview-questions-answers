@@ -1,4 +1,4 @@
-# Question 15: API Rate Limits & Fallbacks
+# Question 16: API Rate Limits & Fallbacks
 
 **Question:** During a product launch, your primary LLM API provider hits a severe rate limit (HTTP 429), causing complete service failure. How do you implement robust fallback mechanisms and load balancing across different models?
 

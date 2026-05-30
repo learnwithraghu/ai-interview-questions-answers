@@ -1,4 +1,4 @@
-# Question 25: Caching LLM Responses
+# Question 26: Caching LLM Responses
 
 **Question:** How do you handle caching LLM responses to reduce API costs and latency? Explain the architectural difference between exact-match caching and semantic caching.
 

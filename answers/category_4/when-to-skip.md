@@ -1,4 +1,4 @@
-# Question 20: GenAI Orchestration Frameworks
+# Question 21: GenAI Orchestration Frameworks
 
 **Question:** Explain the role of GenAI orchestration frameworks like LangChain or LlamaIndex. In what scenarios might you choose not to use them and write custom code instead?
 

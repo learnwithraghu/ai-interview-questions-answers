@@ -1,4 +1,4 @@
-# Question 14: Context Window Management
+# Question 15: Context Window Management
 
 **Question:** A production LLM feature starts timing out and failing for 30% of users because the chat history (context window) grew too large. What strategies can you use to compress or manage the context dynamically?
 

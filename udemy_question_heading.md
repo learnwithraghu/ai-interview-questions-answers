@@ -25,10 +25,11 @@
 |---|---------------|
 | 7 | Extracting Valid JSON From Emails |
 | 8 | Debugging RAG Retrieval Versus Generation |
-| 9 | Natural Language To SQL Reliably |
-| 10 | Designing Safe LLM Tool Calling |
-| 11 | Advanced RAG Retrieval Strategy Options |
-| 12 | Automated LLM Evaluation At Scale |
+| 9 | RAG Systems Fail Independently |
+| 10 | Natural Language To SQL Reliably |
+| 11 | Designing Safe LLM Tool Calling |
+| 12 | Advanced RAG Retrieval Strategy Options |
+| 13 | Automated LLM Evaluation At Scale |
 
 ---
 
@@ -36,12 +37,12 @@
 
 | # | Udemy Heading |
 |---|---------------|
-| 13 | Stopping Prompt Injection Attack Immediately |
-| 14 | Managing LLM Context Window Limits |
-| 15 | API Rate Limit Fallback Strategies |
-| 16 | Securing AI Agent Function Calling |
-| 17 | Filtering Hallucinated Citations In Production |
-| 18 | Graceful Degradation When Retrieval Fails |
+| 14 | Stopping Prompt Injection Attack Immediately |
+| 15 | Managing LLM Context Window Limits |
+| 16 | API Rate Limit Fallback Strategies |
+| 17 | Securing AI Agent Function Calling |
+| 18 | Filtering Hallucinated Citations In Production |
+| 19 | Graceful Degradation When Retrieval Fails |
 
 ---
 
@@ -49,11 +50,11 @@
 
 | # | Udemy Heading |
 |---|---------------|
-| 19 | Managed API Versus Open Weight |
-| 20 | When To Skip LangChain Frameworks |
-| 21 | Dedicated Vector DB Versus pgvector |
-| 22 | LLM Observability Tools And Metrics |
-| 23 | Function Calling With External REST |
-| 24 | Multi Agent Workflow State Management |
-| 25 | Exact Match Versus Semantic Caching |
-| 26 | Browser Edge Or Server Inference |
+| 20 | Managed API Versus Open Weight |
+| 21 | When To Skip LangChain Frameworks |
+| 22 | Dedicated Vector DB Versus pgvector |
+| 23 | LLM Observability Tools And Metrics |
+| 24 | Function Calling With External REST |
+| 25 | Multi Agent Workflow State Management |
+| 26 | Exact Match Versus Semantic Caching |
+| 27 | Browser Edge Or Server Inference |

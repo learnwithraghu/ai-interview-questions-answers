@@ -1,4 +1,4 @@
-# Question 11: Advanced Retrieval Strategies
+# Question 12: Advanced Retrieval Strategies
 
 **Question:** Your RAG application is returning irrelevant context for complex, multi-part user queries. What advanced retrieval strategies (e.g., query expansion, HyDE, cross-encoder re-ranking) would you implement to fix this?
 

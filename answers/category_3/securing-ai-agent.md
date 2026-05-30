@@ -1,4 +1,4 @@
-# Question 16: Securing AI Agents
+# Question 17: Securing AI Agents
 
 **Question:** A malicious prompt injection attack successfully tricks your AI agent into executing an unauthorized API call using its connected tools. How do you secure the agent's function-calling capabilities and implement a "human-in-the-loop" safeguard?
 

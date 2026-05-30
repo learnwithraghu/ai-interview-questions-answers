@@ -1,4 +1,4 @@
-# Question 23: OpenAI Function Calling for REST APIs
+# Question 24: OpenAI Function Calling for REST APIs
 
 **Question:** Walk me through exactly how you would use OpenAI's Function Calling API to allow an LLM to interact with an external REST API (like checking the weather).
 

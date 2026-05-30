@@ -1,4 +1,4 @@
-# Question 24: Multi-Agent Workflow State and Routing
+# Question 25: Multi-Agent Workflow State and Routing
 
 **Question:** You need to build a complex, multi-agent workflow where a "researcher" agent gathers data and a "writer" agent drafts a report. How do you manage state, memory, and routing using frameworks like LangGraph or AutoGen?
 
