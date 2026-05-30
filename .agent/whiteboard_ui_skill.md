@@ -149,10 +149,21 @@ Avoid:
 </main>
 ```
 
+## Grid Layout Rules
+
+When using CSS Grid for flow diagrams (boxes + arrows in a row):
+
+- Count every child element, including arrow divs. A 4-box + 3-arrow flow has **7 children**, not 4.
+- The `grid-template-columns` definition must match the exact child count. `repeat(4,1fr)` for 7 children will wrap and break the diagram.
+- Use an explicit mixed template for flow diagrams: `1fr auto 1fr auto 1fr` (or extend the pattern). Arrow columns are `auto`; content columns are `1fr`.
+- When diagrams and explain chips share a board, the diagram must be visually lean — title-only labels, short subtitles, no paragraphs inside diagram nodes. All explanatory text goes in the chips below.
+- Limit explain chips to 4 per slide so diagram + chips fit without overflow inside the board.
+
 ## Validation Checklist
 
 Before finishing HTML learning pages:
 
+- **Count grid children vs columns:** for every grid-based diagram, verify the `grid-template-columns` column count exactly matches the number of direct children.
 - Open every page at mobile, tablet, laptop, and wide desktop widths.
 - Confirm there is no horizontal overflow.
 - Confirm no text overlaps another element.

@@ -23,7 +23,7 @@ Below is the curriculum structure, including the engaging lecture titles that co
 
 * **Lecture 7:** Extracting Valid JSON From Emails
 * **Lecture 8:** RAG Systems Fail Independently
-* **Lecture 9:** Debugging RAG Retrieval Versus Generation
+* **Lecture 9:** Claude Code Compact Feature
 * **Lecture 10:** Natural Language To SQL Reliably
 * **Lecture 11:** Designing Safe LLM Tool Calling
 * **Lecture 12:** Advanced RAG Retrieval Strategy Options

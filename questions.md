@@ -26,7 +26,7 @@ Question bank for the AI Engineer Interview Bootcamp.
 
 8. **[Medium]** In a RAG system, why should retrieval and generation be treated as two separate systems that can fail independently?
 
-9. **[Medium]** You are building a document Q&A bot. Users complain that the bot says "I don't know" even when the answer is clearly in the document. How do you troubleshoot whether the failure is in the retrieval step or the generation step?
+9. **[Medium]** You are an hour into a complex debugging session with Claude Code — many files edited, lots of back-and-forth. Responses are getting less focused and you're approaching the context window limit. How do you keep the session going without losing your work or starting over?
 
 10. **[Medium]** Your application uses an LLM to generate SQL queries from natural language. How do you handle database schema changes and prevent the LLM from hallucinating column names?
 

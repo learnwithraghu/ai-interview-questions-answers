@@ -74,3 +74,16 @@ Apply this persona to **all four answer sections** (Question Explanation, Concep
     1. Update `udemy_question_heading.md` (add/edit/remove rows).
     2. Update `README.md` Lecture list so each question's lecture title matches `udemy_question_heading.md`.
     3. Update or create the answer file in `answers/category_<section>/<first-three-udemy-heading-words>.md` if the question changed.
+
+---
+
+## Question Update Order (MANDATORY)
+
+Whenever any question is changed — whether it is the question text, topic, heading, or HTML deck — **always update in this exact sequence**. Never update the HTML before the source files are correct.
+
+1. **Answer `.md` file** (`answers/category_<n>/<slug>.md`) — update the question text, explanation, example, and interview response.
+2. **`udemy_question_heading.md`** — update the 4–5 word Udemy heading for that question number.
+3. **`questions.md`** — update the question text and difficulty tag.
+4. **HTML deck** (`answers/category_<n>/html-learning/<nn>.html`) — update last, sourcing only from the updated `.md` file.
+
+The HTML is a derived artefact. If a source file has not been updated yet, do not touch the HTML — it will be inconsistent with the course curriculum files.
