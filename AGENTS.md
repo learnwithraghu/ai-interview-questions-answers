@@ -11,12 +11,15 @@ When editing course content in this repo, follow these rules:
    - `questions.md`
    - `udemy_question_heading.md`
    - `README.md` (Course Curriculum section)
-   - `answers/category_<section>/<number>.md`
+   - `answers/category_<section>/<first-three-udemy-heading-words>.md`
 3. Use the instructor persona defined in the agent skill (Matt Pocock clarity + Andrej Karpathy first-principles teaching).
+4. Read `.agent/whiteboard_ui_skill.md` before creating or changing visual HTML learning pages under `answers/**/html-learning/`.
+5. HTML learning pages must be visual-first, responsive on every screen size, and derived only from the matching answer file in `answers/`.
 
 ## Project structure
 
 - `questions.md` — interview question bank
 - `udemy_question_heading.md` — 4–5 word Udemy video titles
 - `answers/` — four-part answer files per question
+- `answers/**/html-learning/` — standalone visual HTML learning pages generated from answer files
 - `.agent/` — detailed agent skills and SOPs

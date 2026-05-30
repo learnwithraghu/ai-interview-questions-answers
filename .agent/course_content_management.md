@@ -38,7 +38,7 @@ Apply this persona to **all four answer sections** (Question Explanation, Concep
 
 ### 2. Writing Answers
 *   Every question must have a corresponding answer file in the `answers/category_<number>/` directory.
-*   File naming convention: Use a two-digit number corresponding to the question number (e.g., `07.md`, `12.md`).
+*   File naming convention: Use the first three words from the matching short-form heading in `udemy_question_heading.md`, slugified in lowercase kebab-case (e.g., `Extracting Valid JSON From Emails` becomes `extracting-valid-json.md`).
 *   **Voice:** Follow the **Instructor Persona** above in every answer—Matt Pocock clarity + Karpathy first-principles intuition.
 *   **Answer File Structure:**
     *   H1 Heading: `# Question X: [Brief Topic]`
@@ -73,4 +73,4 @@ Apply this persona to **all four answer sections** (Question Explanation, Concep
 *   **Cross-file checklist** (run whenever `questions.md` changes):
     1. Update `udemy_question_heading.md` (add/edit/remove rows).
     2. Update `README.md` Lecture list so each question's lecture title matches `udemy_question_heading.md`.
-    3. Update or create the answer file in `answers/category_<section>/<number>.md` if the question changed.
+    3. Update or create the answer file in `answers/category_<section>/<first-three-udemy-heading-words>.md` if the question changed.
