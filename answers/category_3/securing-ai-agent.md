@@ -23,5 +23,32 @@ When you give an AI agent access to real tools—sending emails, deleting record
 ### 3. Real-World Example
 A customer success AI agent had tools to look up customer accounts and issue refunds. A support ticket contained a hidden injection payload that tried to make the agent issue a $10,000 refund to a fake account. Because the "issue_refund" tool was classified as "destructive," the agent's execution was paused and a confirmation request was sent to a human supervisor before any money moved. The injection was caught and the action was rejected.
 
-### 4. This is how I would answer this
+### 4. How Other Frameworks and Platforms Handle This
+
+**OpenAI Function Calling (strict mode)**
+OpenAI's function calling supports a `strict: true` parameter that enforces the function's JSON schema at the model level — the model is constrained to only output arguments that conform to the schema, which it cannot deviate from. This is schema validation baked into the inference step rather than applied afterwards. It eliminates a class of argument manipulation attacks but doesn't prevent the agent from choosing to call the wrong function in the first place.
+
+**LangChain Agent Tools — Permission Wrapping**
+LangChain doesn't have a native permission system, but the community pattern is to wrap tools in a `HumanApprovalCallbackHandler`. When attached to an agent, this callback intercepts every tool call, pauses execution, and requires a human `y/n` approval via the terminal (or a custom UI). For production deployments, teams replace the terminal prompt with a webhook that sends a Slack message or pushes to a dashboard for human review. This is manual HITL wiring rather than a framework-native feature.
+
+**Microsoft AutoGen — Human Proxy Agent**
+AutoGen is a multi-agent framework from Microsoft Research. Its `UserProxyAgent` plays the role of the "human" in a human-in-the-loop architecture. By default, it intercepts every agent action and requires human confirmation. You configure it with a `human_input_mode` setting: `ALWAYS` (confirm everything), `NEVER` (fully autonomous), or `TERMINATE` (only ask when the agent signals it's done). This makes the HITL posture a first-class configuration option rather than an afterthought.
+
+**Anthropic Claude — Tool Use with `computer_use` Caution Level**
+Anthropic's own guidance for agentic Claude use recommends a "minimal footprint" principle — the agent should request only the permissions it needs for the current task, prefer reversible over irreversible actions, and err on the side of asking for confirmation when uncertain about scope. Claude's system prompt can explicitly define which tool calls require confirmation. This is a prompt-engineering HITL pattern rather than a framework-level gate, which means it relies on the model following instructions — making it softer than a code-level check.
+
+**Lakera Guard**
+Lakera Guard is a managed API that sits in front of your LLM and classifies every prompt for injection attempts, jailbreaks, and policy violations in real time at ~10ms latency. Unlike building your own classifier with NeMo Guardrails, it's a drop-in API call requiring no ML infrastructure. It also maintains a continuously updated threat database, so new injection patterns discovered in the wild are added without you needing to update a model.
+
+| Tool / Approach | HITL Mechanism | Injection Defence | Least Privilege |
+|---|---|---|---|
+| OpenAI strict function calling | None (schema enforcement only) | Partial | Schema-level |
+| LangChain HumanApproval callback | Manual webhook wiring | None natively | None natively |
+| Microsoft AutoGen UserProxyAgent | Native, configurable mode | None natively | None natively |
+| Anthropic Claude tool guidance | Prompt-level instructions | Partial | Prompt-level |
+| Lakera Guard | None | Managed classifier API | None |
+
+The pattern: **no single framework solves all layers**. Production agent security requires combining at least two of these — typically a managed injection classifier (Lakera / NeMo) for input scanning, plus a code-level HITL gate (AutoGen / LangChain callback) for irreversible actions. Relying on any one layer alone leaves gaps.
+
+### 5. This is how I would answer this
 "My approach is defence-in-depth. At the input level, I'd run every user message through an injection detection classifier before it touches the agent. At the tool level, I'd apply the principle of least privilege—only expose the tools the agent actually needs, validate all arguments against a strict schema, and separate tools into 'safe' and 'destructive' categories. For anything destructive or irreversible, I'd implement a hard human-in-the-loop gate that pauses the agent and requires explicit human approval before execution. Nothing that can't be undone should run automatically."

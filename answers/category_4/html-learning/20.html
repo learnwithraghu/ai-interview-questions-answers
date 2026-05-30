@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Q20 · Managed API vs Open-Weight</title>
+<style>
+*{box-sizing:border-box}:root{--ink:#172033;--muted:#64748b;--blue:#2563eb;--orange:#ea580c;--green:#16a34a;--red:#dc2626;--purple:#7c3aed;--paper:#fffef7;--line:#1e293b}html,body{width:100%;height:100%;margin:0;overflow:hidden}body{font-family:"Trebuchet MS",Arial,sans-serif;color:var(--ink);background:#fbfdff radial-gradient(#cbd5e1 1px,transparent 1px) 0 0/26px 26px}.deck{position:relative;width:100vw;height:100dvh;overflow:hidden}.slide{position:absolute;inset:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:clamp(8px,1.8vw,18px);padding:clamp(16px,4vw,44px) clamp(56px,8vw,90px);opacity:0;pointer-events:none;transform:translateX(22px) scale(.98);transition:.28s ease}.slide.active{opacity:1;pointer-events:auto;transform:none}.eyebrow{margin:0;color:var(--blue);font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(.7rem,1.5vw,.9rem)}h1,h2{margin:0;line-height:.96;letter-spacing:-.05em}h1{font-size:clamp(1.35rem,4.3vw,4.1rem);max-width:15ch}h2{font-size:clamp(1.45rem,4vw,3.4rem)}.hint,.end-note{margin:0;color:var(--muted);font-size:clamp(.86rem,1.75vw,1.05rem);line-height:1.35}.board{min-height:0;display:grid;place-items:center;border:3px solid var(--line);border-radius:28px 18px 30px 20px;background:rgba(255,255,255,.92);box-shadow:8px 8px 0 rgba(15,23,42,.08);padding:clamp(12px,2.6vw,28px);overflow:hidden}.explain-board{grid-template-rows:minmax(0,1fr) auto;gap:clamp(8px,1.4vw,14px);align-items:center}.explain-board .explain{width:min(920px,100%);padding:clamp(8px,1.5vw,14px);border:2px dashed #94a3b8;border-radius:18px;background:#f8fafc;color:#334155;box-shadow:3px 3px 0 rgba(15,23,42,.05);display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:clamp(6px,1vw,10px)}.explain span{display:grid;align-content:center;min-height:clamp(42px,7vh,70px);padding:clamp(7px,1.2vw,11px);border:2px solid #cbd5e1;border-radius:14px;background:white;text-align:left;font-weight:800;line-height:1.22;font-size:clamp(.72rem,1.3vw,.82rem)}.explain strong{color:var(--line);font-weight:900}.question{width:min(900px,100%);font-size:clamp(1.05rem,3vw,2.45rem);line-height:1.22;text-align:center;font-weight:900}.quote{width:min(900px,100%);font-size:clamp(.9rem,2.3vw,1.7rem);line-height:1.35;text-align:center;font-weight:800}.quote em{font-style:normal;color:var(--blue)}.nav{position:absolute;top:50%;translate:0 -50%;width:clamp(38px,5vw,58px);height:clamp(38px,5vw,58px);border:3px solid var(--line);border-radius:50%;background:white;color:var(--line);font-size:clamp(1.3rem,3vw,2rem);font-weight:900;cursor:pointer;z-index:5}.nav:disabled{opacity:.35;cursor:not-allowed}.prev{left:12px}.next{right:12px}.progress{position:absolute;left:50%;bottom:12px;translate:-50% 0;background:#0f172a;color:white;border-radius:999px;padding:7px 13px;font-weight:900;font-size:.85rem;z-index:5}.linkedin{position:absolute;right:14px;top:22%;width:clamp(34px,4.5vw,50px);height:clamp(34px,4.5vw,50px);display:grid;place-items:center;border-radius:14px;background:#0a66c2;color:white;box-shadow:4px 4px 0 rgba(15,23,42,.12);z-index:6}.linkedin svg{width:62%;height:62%;fill:currentColor}
+.two-col{width:min(840px,100%);display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,2vw,18px)}.col-box{border:3px solid var(--line);border-radius:20px;padding:clamp(10px,2vw,16px);background:var(--paper);box-shadow:4px 4px 0 rgba(15,23,42,.06)}.col-title{font-weight:900;font-size:clamp(.9rem,2vw,1.2rem);margin-bottom:6px}.col-sub{font-size:clamp(.72rem,1.3vw,.82rem);color:var(--muted);margin-bottom:8px;font-weight:700}.col-list{list-style:none;padding:0;margin:0 0 8px;font-size:clamp(.7rem,1.3vw,.82rem);font-weight:700;line-height:1.6}.col-tag{display:inline-block;margin-top:6px;font-size:clamp(.62rem,1.1vw,.72rem);font-weight:900;padding:3px 10px;border-radius:999px;border:2px solid var(--line)}
+.layers{width:min(700px,100%);display:grid;gap:clamp(6px,1.2vw,10px)}.layer{border:3px solid var(--line);border-radius:16px;padding:clamp(8px,1.5vw,14px);background:var(--paper);display:grid;grid-template-columns:auto 1fr;gap:clamp(8px,1vw,12px);align-items:center;box-shadow:3px 3px 0 rgba(15,23,42,.06)}.layer-num{width:clamp(28px,4vw,40px);height:clamp(28px,4vw,40px);border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:clamp(.85rem,1.8vw,1.1rem)}.layer-text{font-weight:800;font-size:clamp(.78rem,1.5vw,.95rem);line-height:1.2}.layer-text strong{display:block;font-size:1.05em;margin-bottom:2px}
+@media(max-width:720px){.slide{padding:14px 50px 46px}.two-col{grid-template-columns:1fr}.layers{width:100%}.linkedin{top:10px;right:10px}.board{padding:10px}}
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <!-- Slide 1: Question -->
+  <section class="slide active" data-slide="0">
+    <p class="eyebrow">Question 20 &nbsp;·&nbsp; AI Engineer Interview Bootcamp</p>
+    <div class="board" style="align-items:start;padding-top:clamp(16px,3vw,36px)">
+      <h1>Managed API vs&nbsp;Open-Weight</h1>
+      <p class="question" style="margin-top:clamp(10px,2vw,22px)">What are the main differences between using a managed LLM API (like OpenAI GPT-4 or Anthropic Claude) versus accessing an open-weight model (like Llama 3) hosted on a cloud provider like Groq or Together AI?</p>
+      <p class="hint" style="margin-top:clamp(8px,1.5vw,16px)">Think in terms of control, cost, and who owns the ops burden.</p>
+    </div>
+    <div></div>
+  </section>
+
+  <!-- Slide 2: The spectrum of control -->
+  <section class="slide" data-slide="1">
+    <p class="eyebrow">Question 20 &nbsp;·&nbsp; The spectrum of control</p>
+    <h2>Two camps, different trade-offs</h2>
+    <div class="board explain-board">
+      <div class="two-col">
+        <div class="col-box" style="background:#dbeafe">
+          <div class="col-title">Managed API</div>
+          <div class="col-sub">OpenAI &nbsp;·&nbsp; Anthropic &nbsp;·&nbsp; Google</div>
+          <ul class="col-list">
+            <li>Zero ops burden</li>
+            <li>Pay per token</li>
+            <li>No customisation</li>
+          </ul>
+          <span class="col-tag" style="background:#2563eb;color:white;border-color:#2563eb">You focus on product</span>
+        </div>
+        <div class="col-box" style="background:#dcfce7">
+          <div class="col-title">Open-Weight Hosted</div>
+          <div class="col-sub">Groq &nbsp;·&nbsp; Together AI &nbsp;·&nbsp; Replicate</div>
+          <ul class="col-list">
+            <li>You pick the model</li>
+            <li>Lower cost at scale</li>
+            <li>Fine-tuning possible</li>
+          </ul>
+          <span class="col-tag" style="background:#16a34a;color:white;border-color:#16a34a">GPU is their problem</span>
+        </div>
+      </div>
+      <div class="explain">
+        <span><strong>Managed API:</strong> provider handles infrastructure, scaling, and safety filtering. You focus on product.</span>
+        <span><strong>Open-weight hosted:</strong> you choose the model variant (Llama 3 8B, 70B, etc.) but GPU is someone else's problem.</span>
+        <span><strong>Cost crossover:</strong> managed API wins at low volume; open-weight hosted wins at high volume due to per-token pricing.</span>
+        <span><strong>Vendor lock-in:</strong> managed APIs have non-standard interfaces. Open-weight models use OpenAI-compatible APIs via providers.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 3: The decision framework -->
+  <section class="slide" data-slide="2">
+    <p class="eyebrow">Question 20 &nbsp;·&nbsp; The decision framework</p>
+    <h2>Four factors to decide</h2>
+    <div class="board explain-board">
+      <div class="layers">
+        <div class="layer">
+          <div class="layer-num" style="background:#dbeafe;color:#1d4ed8">1</div>
+          <div class="layer-text"><strong>Privacy &amp; data residency</strong>Does your data leave your infrastructure? Managed APIs = yes.</div>
+        </div>
+        <div class="layer">
+          <div class="layer-num" style="background:#ffedd5;color:#c2410c">2</div>
+          <div class="layer-text"><strong>Customisation</strong>Fine-tune on domain data? Only possible with open-weight.</div>
+        </div>
+        <div class="layer">
+          <div class="layer-num" style="background:#dcfce7;color:#15803d">3</div>
+          <div class="layer-text"><strong>Ops maturity</strong>Do you have ML infrastructure to manage? If not, start managed.</div>
+        </div>
+        <div class="layer">
+          <div class="layer-num" style="background:#f3e8ff;color:#6d28d9">4</div>
+          <div class="layer-text"><strong>Cost at scale</strong>Millions of calls/day makes hosted open-weight significantly cheaper.</div>
+        </div>
+      </div>
+      <div class="explain">
+        <span><strong>Migration path:</strong> start on managed API to ship fast, migrate to hosted open-weight as volume grows.</span>
+        <span><strong>Groq:</strong> custom LPU chips running Llama/Mixtral at 500–800 tokens/sec — fastest inference available.</span>
+        <span><strong>Self-hosting (vLLM, Ollama):</strong> maximum control, lowest cost, highest ops burden.</span>
+        <span><strong>Fine-tuning advantage:</strong> a fine-tuned Llama 3 8B can outperform GPT-4o on specific domain tasks.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 4: Answer -->
+  <section class="slide" data-slide="3">
+    <p class="eyebrow">Question 20 &nbsp;·&nbsp; Say it</p>
+    <h2>Say it</h2>
+    <div class="board" style="align-items:start;gap:clamp(10px,2vw,20px);grid-template-rows:1fr auto">
+      <p class="quote">"In my experience, a <em>managed API</em> is best when you want <em>low operational overhead</em>, fast iteration, and a trusted provider handling scaling and updates. An <em>open-weight model</em> on hosted hardware is better when you need more control over the model, <em>custom fine-tuning</em>, and <em>lower cost at scale</em> — but you also need to invest in deployment and governance. I usually <em>start teams on a managed API</em> and migrate specific high-volume workloads to hosted open-weight as usage grows."</p>
+      <p class="end-note">Tip: name-drop Groq (speed) and Together AI (variety) to show awareness of the landscape.</p>
+    </div>
+    <div></div>
+  </section>
+
+  <!-- Nav -->
+  <button class="nav prev" aria-label="Previous">&lsaquo;</button>
+  <button class="nav next" aria-label="Next">&rsaquo;</button>
+  <div class="progress">1 / 4</div>
+
+  <a class="linkedin" href="https://www.linkedin.com/in/raghunandana-krishnamurthy-664264b7/" target="_blank" rel="noopener" aria-label="Built by Raghunandana KrishnaMurthy Sanur on LinkedIn">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+  </a>
+</div>
+<script>
+const slides=[...document.querySelectorAll('[data-slide]')],progress=document.querySelector('.progress'),prev=document.querySelector('.prev'),next=document.querySelector('.next');let index=0;function show(i){index=Math.max(0,Math.min(i,slides.length-1));slides.forEach((s,n)=>s.classList.toggle('active',n===index));progress.textContent=`${index+1} / ${slides.length}`;prev.disabled=index===0;next.disabled=index===slides.length-1}prev.onclick=()=>show(index-1);next.onclick=()=>show(index+1);addEventListener('keydown',e=>{if(e.key==='ArrowLeft')show(index-1);if(e.key==='ArrowRight')show(index+1)});show(0);
+</script>
+</body>
+</html>

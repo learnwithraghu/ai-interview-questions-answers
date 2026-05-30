@@ -156,14 +156,71 @@ When using CSS Grid for flow diagrams (boxes + arrows in a row):
 - Count every child element, including arrow divs. A 4-box + 3-arrow flow has **7 children**, not 4.
 - The `grid-template-columns` definition must match the exact child count. `repeat(4,1fr)` for 7 children will wrap and break the diagram.
 - Use an explicit mixed template for flow diagrams: `1fr auto 1fr auto 1fr` (or extend the pattern). Arrow columns are `auto`; content columns are `1fr`.
+- Never use `repeat(N, 1fr)` for a flow that contains arrow divs — it gives arrow divs the same width as content boxes and causes wrapping when children exceed N.
+- **Maximum 4 boxes in a single horizontal flow row.** If the concept has 5 or more steps, use the two-phase split pattern instead (see below).
 - When diagrams and explain chips share a board, the diagram must be visually lean — title-only labels, short subtitles, no paragraphs inside diagram nodes. All explanatory text goes in the chips below.
 - Limit explain chips to 4 per slide so diagram + chips fit without overflow inside the board.
+
+## Arrow and Connector Rules
+
+- Always use the Unicode right arrow `→` (not ASCII `->` or HTML entity `-&gt;`) for horizontal flow connectors.
+- Always use the Unicode down arrow `↓` for vertical flow connectors.
+- In the CSS, arrow columns must be `auto` width — never `1fr`. This keeps arrows narrow and lets content boxes take the available space.
+- Arrow font size: `clamp(1rem, 2.2vw, 1.8rem)` — do not scale arrows as large as headings.
+- On mobile when a horizontal flow collapses to a single column, add `transform: rotate(90deg)` on the `.flow-arrow` so horizontal `→` visually becomes `↓`.
+
+## Two-Phase Layout Pattern (for 5+ step concepts)
+
+When a concept has a "model decides / your code acts" boundary, or any natural 2-phase split, use a stacked two-phase layout instead of a single horizontal row:
+
+```html
+<div class="two-phase">
+  <div><span class="phase-label" style="background:#dbeafe;color:#1d4ed8">Phase 1 label</span></div>
+  <div class="phase-row-sm">
+    <!-- 2–3 boxes + arrows for phase 1 -->
+  </div>
+  <div class="handoff">↓ &nbsp; transition label &nbsp; ↓</div>
+  <div><span class="phase-label" style="background:#dcfce7;color:#15803d">Phase 2 label</span></div>
+  <div class="phase-row">
+    <!-- 3 boxes + arrows for phase 2 -->
+  </div>
+</div>
+```
+
+CSS for the two-phase pattern:
+```css
+.two-phase { width: min(820px, 100%); display: grid; gap: clamp(6px, 1.2vw, 10px); }
+.phase-label { font-size: clamp(.7rem, 1.3vw, .82rem); font-weight: 900; letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; display: inline-block; width: fit-content; }
+.phase-row  { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: clamp(6px, 1.2vw, 10px); align-items: center; }
+.phase-row-sm { display: grid; grid-template-columns: 1fr auto 1fr; gap: clamp(6px, 1.2vw, 10px); align-items: center; }
+.handoff { text-align: center; font-size: clamp(.72rem, 1.3vw, .85rem); font-weight: 900; color: var(--muted); padding: clamp(4px, 0.8vw, 6px) 0; border-top: 2px dashed #cbd5e1; border-bottom: 2px dashed #cbd5e1; margin: 2px 0; }
+.flow-box { border: 3px solid var(--line); border-radius: 14px; padding: clamp(8px, 1.5vw, 13px); text-align: center; font-weight: 900; font-size: clamp(.7rem, 1.4vw, .88rem); box-shadow: 3px 3px 0 rgba(15,23,42,.06); }
+.flow-arrow { text-align: center; font-size: clamp(1rem, 2vw, 1.6rem); font-weight: 900; padding: 0 2px; }
+```
+
+Mobile override: collapse both phase rows to single column and rotate arrows.
+
+## Nav Button Rules
+
+Navigation buttons must always use single-chevron characters, never angle brackets:
+
+- **Correct:** `&lsaquo;` (renders as `‹`) and `&rsaquo;` (renders as `›`)
+- **Wrong:** `&lt;` / `&gt;` (renders as `<` and `>` — looks like HTML markup, not navigation)
+
+```html
+<button class="nav prev" type="button" aria-label="Previous slide">&lsaquo;</button>
+<button class="nav next" type="button" aria-label="Next slide">&rsaquo;</button>
+```
 
 ## Validation Checklist
 
 Before finishing HTML learning pages:
 
 - **Count grid children vs columns:** for every grid-based diagram, verify the `grid-template-columns` column count exactly matches the number of direct children.
+- **Arrow characters:** every flow connector div uses `→` (Unicode) not `->` or `-&gt;`. Vertical connectors use `↓`.
+- **Arrow CSS columns:** arrow divs sit in `auto`-width columns, never `1fr` — confirm no `repeat(N,1fr)` template contains arrow divs.
+- **Flow row length:** no single horizontal flow row has more than 4 content boxes. If 5+ steps needed, the two-phase layout pattern is used.
+- **Nav buttons:** prev/next buttons use `&lsaquo;` / `&rsaquo;`, not `&lt;` / `&gt;`.
 - Open every page at mobile, tablet, laptop, and wide desktop widths.
 - Confirm there is no horizontal overflow.
 - Confirm no text overlaps another element.

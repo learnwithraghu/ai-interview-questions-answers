@@ -25,5 +25,32 @@ The solution is proactive context management—don't wait for the API to reject 
 ### 3. Real-World Example
 A customer support chatbot started failing for long-running sessions—some conversations had 200+ message turns spanning an entire workday. The team implemented a hybrid strategy: they kept the last 10 messages verbatim (sliding window) and used GPT-4o-mini to summarize everything older into a 3-sentence "session summary" that was prepended to every API call. Timeouts dropped from 30% to under 0.5% within a day of the fix.
 
-### 4. This is how I would answer this
+### 4. How Other Tools and Frameworks Handle This
+
+**OpenAI Assistants API (Threads)**
+OpenAI's managed Threads API handles context management automatically. When you use the Assistants API, conversation history is stored server-side in a "thread" and OpenAI's infrastructure decides what to include in each API call — you never manage the token budget yourself. The model silently truncates older messages when the window fills up. The trade-off: you lose control over *what* gets dropped, and there's no transparency about when truncation happens.
+
+**LangChain Memory**
+LangChain has a dedicated `memory` module with several strategies: `ConversationBufferMemory` (keep everything, fail at limit), `ConversationSummaryMemory` (summarise on overflow), `ConversationSummaryBufferMemory` (hybrid — summarise old, keep recent verbatim), and `VectorStoreRetrieverMemory` (store everything, retrieve only relevant turns per query). The framework makes the strategy swappable with a single line change — good for experimenting. The downside: LangChain's memory abstractions have been inconsistent across versions.
+
+**Mem0 (open-source)**
+Mem0 is a memory layer specifically designed for AI applications. It extracts structured facts from conversations (names, preferences, decisions, constraints) and stores them in a vector database. On each new turn, it retrieves the top-K most relevant facts by similarity and injects them into the context. This is the "external memory store" approach described in section 2, packaged as a reusable library. It can maintain effectively infinite memory with a constant, small token footprint per request.
+
+**ChatGPT's Memory Feature**
+OpenAI's consumer ChatGPT uses a two-layer system: in-session context (standard sliding window) plus a separate "memory" that persists across sessions as a list of saved facts ("User prefers concise answers", "User works at a fintech company"). The model decides what to save, which is convenient but opaque — you can't reliably predict what it will remember or forget. The key insight: persistent facts and ephemeral conversation history are treated as separate concerns, not one growing buffer.
+
+**Claude Code's `/compact` Command**
+Claude Code's approach is a manual LLM-summarisation trigger with full user visibility. You run `/compact`, Claude generates a structured summary of the session (decisions made, files edited, open tasks), and that summary replaces the full history. You can inspect the summary before continuing. Unlike the Assistants API's silent truncation, the user controls timing and can verify what was preserved. (See the dedicated `/compact` question for a full breakdown.)
+
+| Tool | Strategy | User Control | Transparency |
+|---|---|---|---|
+| OpenAI Assistants API | Silent truncation | None | Opaque |
+| LangChain Memory | Configurable (buffer / summary / vector) | High | Medium |
+| Mem0 | Structured fact extraction + retrieval | Medium | High |
+| ChatGPT Memory | Persistent facts + session window | Low | Low |
+| Claude Code `/compact` | Manual LLM summarisation | Full | Full |
+
+The key insight across all tools: **context management is a product decision, not just an engineering one**. Silent truncation is convenient but erodes trust. Manual compaction preserves trust but adds friction. The right choice depends on whether your users care about session continuity more than they care about simplicity.
+
+### 5. This is how I would answer this
 "The first thing I'd do is add proactive token counting before every API call—if we're approaching the context limit, we trigger compression before the timeout happens. My preferred strategy is conversation summarization: once the history gets too long, I run a fast, cheap model to compress the older messages into a short summary and replace them with that. I'd combine that with a sliding window that always preserves the last 10 messages verbatim so recent context is never lost. For power users who have long sessions with critical facts scattered throughout, I'd also explore extracting key entities into an external memory store."
