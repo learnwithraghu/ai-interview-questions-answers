@@ -51,3 +51,121 @@ Below is the curriculum structure, including the engaging lecture titles that co
 * **Lecture 26:** Exact Match Versus Semantic Caching
 * **Lecture 27:** Browser Edge Or Server Inference
 * **Lecture 28:** Tool Versus Execution Harness
+
+---
+
+## 🛠️ Tool Calling (Function Calling) JSON Flow Example
+
+To understand how tool calling operates under the hood, here is the step-by-step trace of the **4 JSON payloads** exchanged between your application and the LLM API when a user asks: *"What is the temperature in Dubai?"*
+
+### Step 1: Initial Request (App → LLM)
+Your application sends the user's prompt alongside the definitions of the tools it supports (written in JSON schema format).
+
+```json
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "user",
+      "content": "What is the temperature in Dubai?"
+    }
+  ],
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_current_weather",
+        "description": "Get the current weather for a given location",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "location": {
+              "type": "string",
+              "description": "The city and state, e.g. Dubai, UAE"
+            }
+          },
+          "required": ["location"]
+        }
+      }
+    }
+  ]
+}
+```
+
+### Step 2: Tool Call Decision (LLM → App)
+The LLM identifies that the request requires the `get_current_weather` tool, parses the parameter `"Dubai"`, and returns a request for the application to run the tool. The model **stops generating text** at this point.
+
+```json
+{
+  "choices": [
+    {
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "id": "call_12345xyz",
+            "type": "function",
+            "function": {
+              "name": "get_current_weather",
+              "arguments": "{\"location\": \"Dubai\"}"
+            }
+          }
+        ]
+      },
+      "finish_reason": "tool_calls"
+    }
+  ]
+}
+```
+
+### Step 3: Tool Execution & Result Submission (App → LLM)
+Your application extracts the arguments, executes the local code (e.g., calling a weather API), receives the result, and feeds the **entire conversation history** plus the new tool output back to the LLM.
+
+```json
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "user",
+      "content": "What is the temperature in Dubai?"
+    },
+    {
+      "role": "assistant",
+      "content": null,
+      "tool_calls": [
+        {
+          "id": "call_12345xyz",
+          "type": "function",
+          "function": {
+            "name": "get_current_weather",
+            "arguments": "{\"location\": \"Dubai\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_12345xyz",
+      "content": "{\"temp\": \"42°C\", \"condition\": \"Sunny\"}"
+    }
+  ]
+}
+```
+
+### Step 4: Final Response (LLM → App)
+The LLM reads the complete history including the tool's result and produces a final, natural language answer for the user.
+
+```json
+{
+  "choices": [
+    {
+      "message": {
+        "role": "assistant",
+        "content": "The current temperature in Dubai is 42°C and it is Sunny."
+      },
+      "finish_reason": "stop"
+    }
+  ]
+}
+```
