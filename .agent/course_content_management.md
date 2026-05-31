@@ -38,7 +38,7 @@ Apply this persona to **all four answer sections** (Question Explanation, Concep
 
 ### 2. Writing Answers
 *   Every question must have a corresponding answer file in the `answers/category_<number>/` directory.
-*   File naming convention: Use the first three words from the matching short-form heading in `udemy_question_heading.md`, slugified in lowercase kebab-case (e.g., `Extracting Valid JSON From Emails` becomes `extracting-valid-json.md`).
+*   File naming convention: Use `q` followed by the zero-padded question number (e.g., `q01`, `q02`, ...), a hyphen, and the first three words from the matching short-form heading in `udemy_question_heading.md`, slugified in lowercase kebab-case (e.g., `Extracting Valid JSON From Emails` (Question 7) becomes `q07-extracting-valid-json.md`).
 *   **Voice:** Follow the **Instructor Persona** above in every answer—Matt Pocock clarity + Karpathy first-principles intuition.
 *   **Answer File Structure:**
     *   H1 Heading: `# Question X: [Brief Topic]`
@@ -71,10 +71,10 @@ Apply this persona to **all four answer sections** (Question Explanation, Concep
     *   Professional, interview-prep tone. No hype words ("mastering", "zero to hero", "demystifying", "ultimate").
     *   Headings should describe the topic clearly enough to stand alone as a video title on Udemy.
 *   **Cross-file checklist** (run whenever `questions.md` changes):
-    1. Update `udemy_question_heading.md` (add/edit/remove rows).
+    1. Update `udemy_question_heading.md` (add/edit/remove rows and update link).
     2. Update `README.md` Lecture list so each question's lecture title matches `udemy_question_heading.md`.
-    3. Update or create the answer file in `answers/category_<section>/<first-three-udemy-heading-words>.md` if the question changed.
-    4. Create or update the Excalidraw concept diagram in `answers/category_<section>/visuals/<first-three-udemy-heading-words>.excalidraw` and render it to a `.png` export.
+    3. Update or create the answer file in `answers/category_<section>/qNN-<first-three-udemy-heading-words>.md` if the question changed.
+    4. Create or update the Excalidraw concept diagram in `answers/category_<section>/visuals/qNN-<first-three-udemy-heading-words>.excalidraw` and render it to a `.png` export.
 
 ---
 
@@ -82,10 +82,10 @@ Apply this persona to **all four answer sections** (Question Explanation, Concep
 
 Whenever any question is changed — whether it is the question text, topic, heading, or HTML deck — **always update in this exact sequence**. Never update the HTML before the source files are correct.
 
-1. **Answer `.md` file** (`answers/category_<n>/<slug>.md`) — update the question text, explanation, example, and interview response.
-2. **`udemy_question_heading.md`** — update the 4–5 word Udemy heading for that question number.
+1. **Answer `.md` file** (`answers/category_<n>/qNN-<slug>.md`) — update the question text, explanation, example, and interview response.
+2. **`udemy_question_heading.md`** — update the 4–5 word Udemy heading for that question number and update the link.
 3. **`questions.md`** — update the question text and difficulty tag.
-4. **Excalidraw diagram** (`answers/category_<n>/visuals/<slug>.excalidraw` & `.png` export) — create/update the visual diagram mapping to the concept and render it to PNG.
+4. **Excalidraw diagram** (`answers/category_<n>/visuals/qNN-<slug>.excalidraw` & `.png` export) — create/update the visual diagram mapping to the concept and render it to PNG.
 5. **HTML deck** (`answers/category_<n>/html-learning/<nn>.html`) — update last, sourcing only from the updated `.md` file.
 
 The HTML is a derived artefact. If a source file has not been updated yet, do not touch the HTML — it will be inconsistent with the course curriculum files.

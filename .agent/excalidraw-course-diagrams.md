@@ -44,11 +44,11 @@ The palette is **violet-primary** (Matt Pocock-inspired):
 
 | Category | Output directory | Naming |
 |----------|-----------------|--------|
-| category_2 | `answers/category_2/visuals/` | `<answer-slug>.excalidraw` |
-| category_3 | `answers/category_3/visuals/` | `<answer-slug>.excalidraw` |
-| category_4 | `answers/category_4/visuals/` | `<answer-slug>.excalidraw` |
+| category_2 | `answers/category_2/visuals/` | `qNN-<answer-slug>.excalidraw` |
+| category_3 | `answers/category_3/visuals/` | `qNN-<answer-slug>.excalidraw` |
+| category_4 | `answers/category_4/visuals/` | `qNN-<answer-slug>.excalidraw` |
 
-The answer slug is the filename of the matching `.md` file (without `.md`). Example: `answers/category_2/visuals/advanced-rag-retrieval.excalidraw`.
+The answer slug is the filename of the matching `.md` file (without `.md`), which starts with `q` followed by the zero-padded question number. Example: `answers/category_2/visuals/q12-advanced-rag-retrieval.excalidraw`.
 
 ---
 
@@ -87,11 +87,10 @@ Each concept has a natural visual pattern. Match the pattern to the concept's co
 
 | Answer file | Diagram | Status |
 |------------|---------|--------|
-| extracting-valid-json.md | 5-layer defence-in-depth | |
-| natural-language-to.md | Text-to-SQL pipeline | |
-| rag-systems-fail.md | Two independent failure systems | |
-| debugging-rag-retrieval.md | Debug decision tree | |
-| claude-code-compact.md | Before/after session flow | |
-| advanced-rag-retrieval.md | 4 retrieval technique mini-patterns | |
-| designing-safe-llm.md | Tool routing fan-out with HITL gate | |
-| automated-llm-evaluation.md | LLM-as-a-judge evaluation pipeline | |
+| q07-extracting-valid-json.md | 5-layer defence-in-depth | |
+| q08-rag-systems-fail.md | Two independent failure systems | |
+| q09-claude-code-compact.md | Before/after session flow | |
+| q10-natural-language-to.md | Text-to-SQL pipeline | |
+| q11-designing-safe-llm.md | Tool routing fan-out with HITL gate | |
+| q12-advanced-rag-retrieval.md | 4 retrieval technique mini-patterns | |
+| q13-automated-llm-evaluation.md | LLM-as-a-judge evaluation pipeline | |

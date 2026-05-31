@@ -11,8 +11,8 @@ When editing course content in this repo, follow these rules:
    - `questions.md`
    - `udemy_question_heading.md`
    - `README.md` (Course Curriculum section)
-   - `answers/category_<section>/<first-three-udemy-heading-words>.md`
-   - `answers/category_<section>/visuals/<first-three-udemy-heading-words>.excalidraw` (and its rendered `.png` export)
+    - answers/category_<section>/qNN-<first-three-udemy-heading-words>.md
+    - answers/category_<section>/visuals/qNN-<first-three-udemy-heading-words>.excalidraw (and its rendered `.png` export)
 3. Use the instructor persona defined in the agent skill (Matt Pocock clarity + Andrej Karpathy first-principles teaching).
 4. Read `.agent/whiteboard_ui_skill.md` before creating or changing visual HTML learning pages under `answers/**/html-learning/`.
 5. HTML learning pages must be visual-first, responsive on every screen size, and derived only from the matching answer file in `answers/`.
@@ -21,9 +21,9 @@ When editing course content in this repo, follow these rules:
 ## Project structure
 
 - `questions.md` — interview question bank
-- `udemy_question_heading.md` — 4–5 word Udemy video titles
-- `answers/` — four-part answer files per question
-- `answers/**/*.excalidraw` — visual concept diagrams (one per answer) using the violet-primary palette
+- `udemy_question_heading.md` — 4–5 word Udemy video titles with clickable answer file links
+- `answers/` — four-part answer files per question, named `qNN-<first-three-words>.md`
+- `answers/**/*.excalidraw` — visual concept diagrams (one per answer) named `qNN-<first-three-words>.excalidraw` using the violet-primary palette
 - `answers/**/html-learning/` — standalone visual HTML learning pages generated from answer files
 - `.agent/` — detailed agent skills and SOPs
   - `course_content_management.md` — rules for question/answer authoring

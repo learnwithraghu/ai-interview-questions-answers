@@ -34,11 +34,11 @@ Question bank for the AI Engineer Interview Bootcamp.
 
 12. **[Hard]** Your RAG application is returning irrelevant context for complex, multi-part user queries. What advanced retrieval strategies (e.g., query expansion, Hyde, cross-encoder re-ranking) would you implement to fix this?
 
+13. **[Hard]** You are evaluating two different LLMs for a summarization task. One is cheaper but potentially less accurate. How do you set up an automated evaluation pipeline (e.g., using LLM-as-a-judge) to quantify the trade-off at scale?
+
 ---
 
 ### Section 3: Production Incidents & Reliability
-
-13. **[Hard]** You are evaluating two different LLMs for a summarization task. One is cheaper but potentially less accurate. How do you set up an automated evaluation pipeline (e.g., using LLM-as-a-judge) to quantify the trade-off at scale?
 
 14. **[Easy]** Your customer-facing chatbot suddenly starts ignoring its system instructions and answering inappropriate questions. What is likely happening, and how do you stop it immediately?
 
