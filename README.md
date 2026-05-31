@@ -25,7 +25,7 @@ Below is the curriculum structure, including the engaging lecture titles that co
 * **Lecture 8:** RAG Systems Fail Independently
 * **Lecture 9:** Claude Code Compact Feature
 * **Lecture 10:** Natural Language To SQL Reliably
-* **Lecture 11:** Designing Safe LLM Tool Calling
+* **Lecture 11:** Tool Calling Flow Under Hood
 * **Lecture 12:** Advanced RAG Retrieval Strategy Options
 * **Lecture 13:** Automated LLM Evaluation At Scale
 
@@ -56,7 +56,7 @@ Below is the curriculum structure, including the engaging lecture titles that co
 
 ## 🛠️ Tool Calling (Function Calling) JSON Flow Example
 
-To understand how tool calling operates under the hood, here is the step-by-step trace of the **4 JSON payloads** exchanged between your application and the LLM API when a user asks: *"What is the temperature in Dubai?"*
+To understand how tool calling operates under the hood, here is the step-by-step trace of the **4 JSON payloads** exchanged between your application and the LLM API when a user asks: *"Who is our top spending customer?"*
 
 ### Step 1: Initial Request (App → LLM)
 Your application sends the user's prompt alongside the definitions of the tools it supports (written in JSON schema format).
@@ -67,24 +67,24 @@ Your application sends the user's prompt alongside the definitions of the tools 
   "messages": [
     {
       "role": "user",
-      "content": "What is the temperature in Dubai?"
+      "content": "Who is our top spending customer?"
     }
   ],
   "tools": [
     {
       "type": "function",
       "function": {
-        "name": "get_current_weather",
-        "description": "Get the current weather for a given location",
+        "name": "run_sql_query",
+        "description": "Run a read-only SQL query against the user database",
         "parameters": {
           "type": "object",
           "properties": {
-            "location": {
+            "query": {
               "type": "string",
-              "description": "The city and state, e.g. Dubai, UAE"
+              "description": "The SQL query to execute"
             }
           },
-          "required": ["location"]
+          "required": ["query"]
         }
       }
     }
@@ -93,7 +93,7 @@ Your application sends the user's prompt alongside the definitions of the tools 
 ```
 
 ### Step 2: Tool Call Decision (LLM → App)
-The LLM identifies that the request requires the `get_current_weather` tool, parses the parameter `"Dubai"`, and returns a request for the application to run the tool. The model **stops generating text** at this point.
+The LLM identifies that the request requires the `run_sql_query` tool, generates the appropriate SQL query arguments, and returns a request for the application to run the tool. The model **stops generating text** at this point.
 
 ```json
 {
@@ -104,11 +104,11 @@ The LLM identifies that the request requires the `get_current_weather` tool, par
         "content": null,
         "tool_calls": [
           {
-            "id": "call_12345xyz",
+            "id": "call_98765abc",
             "type": "function",
             "function": {
-              "name": "get_current_weather",
-              "arguments": "{\"location\": \"Dubai\"}"
+              "name": "run_sql_query",
+              "arguments": "{\"query\": \"SELECT name FROM users ORDER BY total_spend DESC LIMIT 1;\"}"
             }
           }
         ]
@@ -120,7 +120,7 @@ The LLM identifies that the request requires the `get_current_weather` tool, par
 ```
 
 ### Step 3: Tool Execution & Result Submission (App → LLM)
-Your application extracts the arguments, executes the local code (e.g., calling a weather API), receives the result, and feeds the **entire conversation history** plus the new tool output back to the LLM.
+Your application extracts the SQL argument, executes the query against your database client, receives the result, and feeds the **entire conversation history** plus the new tool output back to the LLM.
 
 ```json
 {
@@ -128,26 +128,26 @@ Your application extracts the arguments, executes the local code (e.g., calling 
   "messages": [
     {
       "role": "user",
-      "content": "What is the temperature in Dubai?"
+      "content": "Who is our top spending customer?"
     },
     {
       "role": "assistant",
       "content": null,
       "tool_calls": [
         {
-          "id": "call_12345xyz",
+          "id": "call_98765abc",
           "type": "function",
           "function": {
-            "name": "get_current_weather",
-            "arguments": "{\"location\": \"Dubai\"}"
+            "name": "run_sql_query",
+            "arguments": "{\"query\": \"SELECT name FROM users ORDER BY total_spend DESC LIMIT 1;\"}"
           }
         }
       ]
     },
     {
       "role": "tool",
-      "tool_call_id": "call_12345xyz",
-      "content": "{\"temp\": \"42°C\", \"condition\": \"Sunny\"}"
+      "tool_call_id": "call_98765abc",
+      "content": "{\"result\": \"Jane Doe\"}"
     }
   ]
 }
@@ -162,7 +162,7 @@ The LLM reads the complete history including the tool's result and produces a fi
     {
       "message": {
         "role": "assistant",
-        "content": "The current temperature in Dubai is 42°C and it is Sunny."
+        "content": "Our top spending customer is Jane Doe."
       },
       "finish_reason": "stop"
     }
