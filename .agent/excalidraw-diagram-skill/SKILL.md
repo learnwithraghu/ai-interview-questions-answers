@@ -29,6 +29,24 @@ A diagram isn't formatted text. It's a visual argument that shows relationships,
 
 ---
 
+## Source Scope
+
+When generating a diagram from a Markdown interview file, **read only the `### 2. Concept Explanation` section**. Do not pull content from Question Explanation, Real-World Example, or the sample answer sections. Those sections serve interview coaching; only the Concept Explanation contains the teachable concept worth visualizing.
+
+---
+
+## Output Path Convention
+
+All `.excalidraw` files generated from MD files must be saved to:
+
+```
+answers/<category>/visuals/<slug>.excalidraw
+```
+
+where `<slug>` matches the MD filename stem (e.g., `hallucinations-in-ai.md` → `visuals/hallucinations-in-ai.excalidraw`). Create the `visuals/` subfolder if it does not exist. Do **not** place files at the category root alongside the MD files.
+
+---
+
 ## Depth Assessment (Do This First)
 
 Before designing, determine what level of detail this diagram needs:
@@ -160,6 +178,20 @@ Evidence artifacts, code snippets, and concrete examples within each section. Th
 
 ---
 
+## Developer Advocate Mindset (Do This Before Designing)
+
+Before sketching anything, answer these three questions out loud:
+
+1. **What is the one sentence that explains this concept?** → This becomes the diagram's title/hero element.
+2. **What would confuse a developer seeing this for the first time?** → Design specifically to eliminate that confusion.
+3. **What is the smallest diagram that teaches this fully?** → Prefer fewer, more meaningful elements over exhaustive coverage.
+
+Concept diagrams from MD files are always **Simple/Conceptual** — they explain a mental model, not a live system. No research mandate and no evidence artifacts are required. Clarity beats completeness.
+
+**Visual-first label rule**: Every text element must be 2–5 words (a shape name, a stage label, a short action verb phrase). Never write a full sentence or a bullet list inside a box. If you need a sentence to explain something, the visual isn't doing its job — redesign the shape or arrow so the structure makes the meaning obvious, then label it with three words.
+
+---
+
 ## Design Process (Do This BEFORE Generating JSON)
 
 ### Step 0: Assess Depth Required
@@ -199,6 +231,8 @@ Before JSON, mentally trace how the eye moves through the diagram. There should 
 
 ### Step 5: Generate JSON
 Only now create the Excalidraw elements. **See below for how to handle large diagrams.**
+
+**Text budget**: Keep a running count of `"type": "text"` entries. Hard max is **25** — no minimum. Fewer is better if the visual structure is self-explanatory. Every text label must be ≤5 words.
 
 ### Step 6: Render & Validate (MANDATORY)
 After generating the JSON, you MUST run the render-view-fix loop until the diagram looks right. This is not optional — see the **Render & Validate** section below for the full process.
@@ -542,11 +576,16 @@ uv run playwright install chromium
 19. **Opacity**: `opacity: 100` for all elements (no transparency)
 20. **Container ratio**: <30% of text elements should be inside containers
 
+### Source & Output (For MD-Derived Diagrams)
+21. **Source scoped**: Only content from `### 2. Concept Explanation` was used
+22. **Output path**: File saved to `answers/<category>/visuals/<slug>.excalidraw`
+23. **Text budget**: Counted `"type": "text"` elements — total is ≤25, every label is ≤5 words
+
 ### Visual Validation (Render Required)
-21. **Rendered to PNG**: Diagram has been rendered and visually inspected
-22. **No text overflow**: All text fits within its container
-23. **No overlapping elements**: Shapes and text don't overlap unintentionally
-24. **Even spacing**: Similar elements have consistent spacing
-25. **Arrows land correctly**: Arrows connect to intended elements without crossing others
-26. **Readable at export size**: Text is legible in the rendered PNG
-27. **Balanced composition**: No large empty voids or overcrowded regions
+24. **Rendered to PNG**: Diagram has been rendered and visually inspected
+25. **No text overflow**: All text fits within its container
+26. **No overlapping elements**: Shapes and text don't overlap unintentionally
+27. **Even spacing**: Similar elements have consistent spacing
+28. **Arrows land correctly**: Arrows connect to intended elements without crossing others
+29. **Readable at export size**: Text is legible in the rendered PNG
+30. **Balanced composition**: No large empty voids or overcrowded regions

@@ -7,6 +7,8 @@ description: Create Excalidraw concept diagrams for the AI Engineer Interview Bo
 
 Generates `.excalidraw` files for each concept in the course. One diagram per answer file. Each diagram should be a **visual argument** — not a slide with boxes.
 
+Rendered `.png` exports should live beside the `.excalidraw` source inside the same `visuals/` folder.
+
 ## Base Skill
 
 All design methodology, JSON structure, visual patterns, and render/validate workflow live in:
@@ -42,11 +44,11 @@ The palette is **violet-primary** (Matt Pocock-inspired):
 
 | Category | Output directory | Naming |
 |----------|-----------------|--------|
-| category_2 | `answers/category_2/` | `<answer-slug>.excalidraw` |
-| category_3 | `answers/category_3/` | `<answer-slug>.excalidraw` |
-| category_4 | `answers/category_4/` | `<answer-slug>.excalidraw` |
+| category_2 | `answers/category_2/visuals/` | `<answer-slug>.excalidraw` |
+| category_3 | `answers/category_3/visuals/` | `<answer-slug>.excalidraw` |
+| category_4 | `answers/category_4/visuals/` | `<answer-slug>.excalidraw` |
 
-The answer slug is the filename of the matching `.md` file (without `.md`). Example: `answers/category_2/advanced-rag-retrieval.excalidraw`.
+The answer slug is the filename of the matching `.md` file (without `.md`). Example: `answers/category_2/visuals/advanced-rag-retrieval.excalidraw`.
 
 ---
 
