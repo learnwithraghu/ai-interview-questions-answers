@@ -50,3 +50,4 @@ Below is the curriculum structure, including the engaging lecture titles that co
 * **Lecture 25:** Multi Agent Workflow State Management
 * **Lecture 26:** Exact Match Versus Semantic Caching
 * **Lecture 27:** Browser Edge Or Server Inference
+* **Lecture 28:** Tool Versus Execution Harness

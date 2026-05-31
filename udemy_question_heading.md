@@ -58,3 +58,5 @@
 | 25 | Multi Agent Workflow State Management |
 | 26 | Exact Match Versus Semantic Caching |
 | 27 | Browser Edge Or Server Inference |
+| 28 | Tool Versus Execution Harness |
+

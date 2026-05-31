@@ -74,6 +74,7 @@ Apply this persona to **all four answer sections** (Question Explanation, Concep
     1. Update `udemy_question_heading.md` (add/edit/remove rows).
     2. Update `README.md` Lecture list so each question's lecture title matches `udemy_question_heading.md`.
     3. Update or create the answer file in `answers/category_<section>/<first-three-udemy-heading-words>.md` if the question changed.
+    4. Create or update the Excalidraw concept diagram in `answers/category_<section>/visuals/<first-three-udemy-heading-words>.excalidraw` and render it to a `.png` export.
 
 ---
 
@@ -84,6 +85,7 @@ Whenever any question is changed — whether it is the question text, topic, hea
 1. **Answer `.md` file** (`answers/category_<n>/<slug>.md`) — update the question text, explanation, example, and interview response.
 2. **`udemy_question_heading.md`** — update the 4–5 word Udemy heading for that question number.
 3. **`questions.md`** — update the question text and difficulty tag.
-4. **HTML deck** (`answers/category_<n>/html-learning/<nn>.html`) — update last, sourcing only from the updated `.md` file.
+4. **Excalidraw diagram** (`answers/category_<n>/visuals/<slug>.excalidraw` & `.png` export) — create/update the visual diagram mapping to the concept and render it to PNG.
+5. **HTML deck** (`answers/category_<n>/html-learning/<nn>.html`) — update last, sourcing only from the updated `.md` file.
 
 The HTML is a derived artefact. If a source file has not been updated yet, do not touch the HTML — it will be inconsistent with the course curriculum files.

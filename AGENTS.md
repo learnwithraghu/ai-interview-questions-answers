@@ -12,6 +12,7 @@ When editing course content in this repo, follow these rules:
    - `udemy_question_heading.md`
    - `README.md` (Course Curriculum section)
    - `answers/category_<section>/<first-three-udemy-heading-words>.md`
+   - `answers/category_<section>/visuals/<first-three-udemy-heading-words>.excalidraw` (and its rendered `.png` export)
 3. Use the instructor persona defined in the agent skill (Matt Pocock clarity + Andrej Karpathy first-principles teaching).
 4. Read `.agent/whiteboard_ui_skill.md` before creating or changing visual HTML learning pages under `answers/**/html-learning/`.
 5. HTML learning pages must be visual-first, responsive on every screen size, and derived only from the matching answer file in `answers/`.

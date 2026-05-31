@@ -71,3 +71,6 @@ Question bank for the AI Engineer Interview Bootcamp.
 26. **[Hard]** How do you handle caching LLM responses to reduce API costs and latency? Explain the architectural difference between exact-match caching and semantic caching.
 
 27. **[Medium]** Where should inference run — browser, edge, server — and why?
+
+28. **[Medium]** In the context of building and testing AI agents, what is the difference between a "tool" and a "harness"?
+
