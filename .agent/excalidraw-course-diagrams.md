@@ -91,6 +91,6 @@ Each concept has a natural visual pattern. Match the pattern to the concept's co
 | q08-rag-systems-fail.md | Two independent failure systems | |
 | q09-claude-code-compact.md | Before/after session flow | |
 | q10-natural-language-to.md | Text-to-SQL pipeline | |
-| q11-designing-safe-llm.md | Tool routing fan-out with HITL gate | |
+| q11-tool-calling-flow.md | Tool calling flow under the hood | |
 | q12-advanced-rag-retrieval.md | 4 retrieval technique mini-patterns | |
 | q13-automated-llm-evaluation.md | LLM-as-a-judge evaluation pipeline | |

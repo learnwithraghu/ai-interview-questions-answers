@@ -30,7 +30,7 @@ Question bank for the AI Engineer Interview Bootcamp.
 
 10. **[Medium]** Your application uses an LLM to generate SQL queries from natural language. How do you handle database schema changes and prevent the LLM from hallucinating column names?
 
-11. **[Hard]** A stakeholder wants an LLM application that can search the web, query an internal database, and send an email. How do you design the tool-calling/function-calling architecture to route these intents reliably and safely?
+11. **[Medium]** What does the tool call/function calling flow look like under the hood? Explain the sequence of steps and JSON payloads exchanged between the application and the LLM.
 
 12. **[Hard]** Your RAG application is returning irrelevant context for complex, multi-part user queries. What advanced retrieval strategies (e.g., query expansion, Hyde, cross-encoder re-ranking) would you implement to fix this?
 

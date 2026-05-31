@@ -27,7 +27,7 @@
 | 8 | RAG Systems Fail Independently | [q08-rag-systems-fail.md](answers/category_2/q08-rag-systems-fail.md) |
 | 9 | Claude Code Compact Feature | [q09-claude-code-compact.md](answers/category_2/q09-claude-code-compact.md) |
 | 10 | Natural Language To SQL Reliably | [q10-natural-language-to.md](answers/category_2/q10-natural-language-to.md) |
-| 11 | Designing Safe LLM Tool Calling | [q11-designing-safe-llm.md](answers/category_2/q11-designing-safe-llm.md) |
+| 11 | Tool Calling Flow Under Hood | [q11-tool-calling-flow.md](answers/category_2/q11-tool-calling-flow.md) |
 | 12 | Advanced RAG Retrieval Strategy Options | [q12-advanced-rag-retrieval.md](answers/category_2/q12-advanced-rag-retrieval.md) |
 | 13 | Automated LLM Evaluation At Scale | [q13-automated-llm-evaluation.md](answers/category_2/q13-automated-llm-evaluation.md) |
 
