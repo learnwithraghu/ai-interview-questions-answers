@@ -28,7 +28,7 @@
 | 9 | Claude Code Compact Feature | [q09-claude-code-compact.md](answers/category_2/q09-claude-code-compact.md) |
 | 10 | Natural Language To SQL Reliably | [q10-natural-language-to.md](answers/category_2/q10-natural-language-to.md) |
 | 11 | Tool Calling Flow Under Hood | [q11-tool-calling-flow.md](answers/category_2/q11-tool-calling-flow.md) |
-| 12 | Advanced RAG Retrieval Strategy Options | [q12-advanced-rag-retrieval.md](answers/category_2/q12-advanced-rag-retrieval.md) |
+| 12 | Critical Path In AI Pipelines | [q12-critical-path-in.md](answers/category_2/q12-critical-path-in.md) |
 | 13 | Automated LLM Evaluation At Scale | [q13-automated-llm-evaluation.md](answers/category_2/q13-automated-llm-evaluation.md) |
 
 ---

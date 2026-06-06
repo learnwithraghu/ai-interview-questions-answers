@@ -26,7 +26,7 @@ Below is the curriculum structure, including the engaging lecture titles that co
 * **Lecture 9:** Claude Code Compact Feature
 * **Lecture 10:** Natural Language To SQL Reliably
 * **Lecture 11:** Tool Calling Flow Under Hood
-* **Lecture 12:** Advanced RAG Retrieval Strategy Options
+* **Lecture 12:** Critical Path In AI Pipelines
 * **Lecture 13:** Automated LLM Evaluation At Scale
 
 ### Section 3: Production Incidents & Reliability

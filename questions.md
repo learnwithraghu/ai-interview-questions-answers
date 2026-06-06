@@ -32,7 +32,7 @@ Question bank for the AI Engineer Interview Bootcamp.
 
 11. **[Medium]** What does the tool call/function calling flow look like under the hood? Explain the sequence of steps and JSON payloads exchanged between the application and the LLM.
 
-12. **[Hard]** Your RAG application is returning irrelevant context for complex, multi-part user queries. What advanced retrieval strategies (e.g., query expansion, Hyde, cross-encoder re-ranking) would you implement to fix this?
+12. **[Medium]** You are building a RAG-based Q&A assistant. Which parts of your system will sit on the critical path, and which parts won't? Are you familiar with the term critical path?
 
 13. **[Hard]** You are evaluating two different LLMs for a summarization task. One is cheaper but potentially less accurate. How do you set up an automated evaluation pipeline (e.g., using LLM-as-a-judge) to quantify the trade-off at scale?
 
