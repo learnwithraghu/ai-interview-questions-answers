@@ -59,3 +59,11 @@
 | 26 | Exact Match Versus Semantic Caching | [q26-exact-match-versus.md](answers/category_4/q26-exact-match-versus.md) |
 | 27 | Browser Edge Or Server Inference | [q27-browser-edge-or.md](answers/category_4/q27-browser-edge-or.md) |
 | 28 | Tool Versus Execution Harness | [q28-tool-versus-execution.md](answers/category_4/q28-tool-versus-execution.md) |
+
+---
+
+### Future Questions
+
+| # | Udemy Heading | Answer File |
+|---|---|---|
+| 29 | Pinning LLM Model Versions | [q29-pinning-llm-model.md](future_question_answers/q29-pinning-llm-model.md) |

@@ -52,6 +52,11 @@ Below is the curriculum structure, including the engaging lecture titles that co
 * **Lecture 27:** Browser Edge Or Server Inference
 * **Lecture 28:** Tool Versus Execution Harness
 
+### Future Questions
+*Here are questions under consideration for future curriculum updates.*
+
+* **Lecture 29:** Pinning LLM Model Versions
+
 ---
 
 ## 🛠️ Tool Calling (Function Calling) JSON Flow Example

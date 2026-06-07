@@ -74,3 +74,8 @@ Question bank for the AI Engineer Interview Bootcamp.
 
 28. **[Medium]** In the context of building and testing AI agents, what is the difference between a "tool" and a "harness"?
 
+---
+
+### Future Questions
+
+29. **[Medium]** An AI Engineer deployed a RAG system and it functioned fine, but after 2 months it started giving bad results. No code change and no data change occurred. What could be the issue?

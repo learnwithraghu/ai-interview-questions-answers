@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Question 29: Pinning LLM Model Versions</title>
+  <style>
+    /* Design Tokens & Reset */
+    :root {
+      --bg: #f8fafc;
+      --dot-color: #cbd5e1;
+      --primary: #7c3aed;
+      --primary-dark: #4c1d95;
+      --primary-light: #ede9fe;
+      --text-main: #1e293b;
+      --text-muted: #475569;
+      --border-color: #e2e8f0;
+      
+      /* Semantic colors */
+      --color-success-stroke: #059669;
+      --color-success-fill: #d1fae5;
+      --color-error-stroke: #e11d48;
+      --color-error-fill: #ffe4e6;
+      --color-decision-stroke: #b45309;
+      --color-decision-fill: #fef3c7;
+      --color-ai-stroke: #6d28d9;
+      --color-ai-fill: #f5f3ff;
+      --color-neutral-stroke: #475569;
+      --color-neutral-fill: #f1f5f9;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg);
+      background-image: radial-gradient(var(--dot-color) 1.5px, transparent 1.5px);
+      background-size: 24px 24px;
+      color: var(--text-main);
+      height: 100dvh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Deck Layout */
+    .deck {
+      position: relative;
+      width: min(1000px, 94%);
+      height: min(650px, 90dvh);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Slide Navigation */
+    .slide {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      padding: clamp(20px, 4vw, 50px);
+      text-align: center;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    /* Typography */
+    h1 {
+      font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+      color: var(--primary-dark);
+      font-weight: 800;
+      line-height: 1.3;
+      max-width: 800px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: clamp(15px, 2.5vw, 30px);
+    }
+
+    .eyebrow {
+      font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    /* Visual Boards & Flow Diagrams */
+    .board {
+      width: 100%;
+      max-width: 820px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(15px, 2.5vw, 30px);
+    }
+
+    .flow-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: clamp(8px, 1.5vw, 15px);
+      width: 100%;
+    }
+
+    .flow-box {
+      border: 3px solid var(--box-stroke, var(--primary));
+      background-color: var(--box-fill, var(--primary-light));
+      border-radius: 16px;
+      padding: clamp(10px, 1.5vw, 18px);
+      text-align: center;
+      font-weight: 700;
+      font-size: clamp(0.75rem, 1.3vw, 0.95rem);
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.05);
+      line-height: 1.4;
+    }
+
+    .flow-arrow {
+      text-align: center;
+      font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+      font-weight: 900;
+      color: var(--arrow-color, var(--primary));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Explanation Chips */
+    .explain {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: clamp(8px, 1.2vw, 15px);
+      width: 100%;
+      margin-top: 5px;
+    }
+
+    .chip {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      padding: clamp(8px, 1.2vw, 12px) clamp(12px, 1.5vw, 18px);
+      border-radius: 12px;
+      font-size: clamp(0.75rem, 1.2vw, 0.88rem);
+      color: var(--text-muted);
+      text-align: left;
+      line-height: 1.4;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    .chip strong {
+      color: var(--primary-dark);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .caption {
+      font-size: clamp(0.8rem, 1.3vw, 0.95rem);
+      color: var(--text-muted);
+      max-width: 700px;
+      line-height: 1.5;
+      margin-top: 5px;
+    }
+
+    /* Say Slide Styling */
+    .say-line {
+      font-size: clamp(0.85rem, 1.5vw, 1.15rem);
+      color: var(--text-main);
+      line-height: 1.6;
+      max-width: 780px;
+      text-align: left;
+      white-space: pre-line;
+      background: var(--primary-light);
+      padding: clamp(15px, 2.5vw, 28px);
+      border-left: 5px solid var(--primary);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+
+    .end-note {
+      font-size: clamp(0.7rem, 1.1vw, 0.8rem);
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Navigation Controls */
+    .nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: white;
+      border: 1px solid var(--border-color);
+      width: clamp(36px, 5vw, 48px);
+      height: clamp(36px, 5vw, 48px);
+      border-radius: 50%;
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+      z-index: 10;
+      transition: all 0.2s ease;
+      color: var(--primary-dark);
+      border: 2px solid transparent;
+    }
+
+    .nav:hover {
+      background: var(--primary-light);
+      border-color: var(--primary);
+    }
+
+    .nav:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .nav.prev {
+      left: clamp(10px, 2vw, 25px);
+    }
+
+    .nav.next {
+      right: clamp(10px, 2vw, 25px);
+    }
+
+    .progress {
+      position: absolute;
+      bottom: clamp(15px, 2vw, 25px);
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: clamp(0.75rem, 1.2vw, 0.88rem);
+      color: var(--text-muted);
+      font-weight: 700;
+      background: white;
+      padding: 4px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+    }
+
+    /* Creator Credit Placement */
+    .linkedin-mark {
+      position: absolute;
+      right: clamp(10px, 2vw, 20px);
+      bottom: clamp(15px, 2vw, 25px);
+      width: clamp(20px, 3.5vw, 26px);
+      height: clamp(20px, 3.5vw, 26px);
+      color: #0077b5;
+      z-index: 10;
+      transition: transform 0.2s ease;
+    }
+
+    .linkedin-mark:hover {
+      transform: scale(1.1);
+    }
+
+    .linkedin-mark svg {
+      width: 100%;
+      height: 100%;
+      fill: currentColor;
+    }
+
+    /* Responsive overrides (Mobile) */
+    @media (max-width: 600px) {
+      .slide {
+        padding: 15px;
+      }
+      
+      .deck {
+        width: 96%;
+        height: 94dvh;
+      }
+
+      .board {
+        gap: 12px;
+      }
+
+      .flow-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .flow-arrow {
+        transform: rotate(90deg);
+        padding: 4px 0;
+      }
+
+      .explain {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .say-line {
+        padding: 12px;
+        font-size: 0.85rem;
+      }
+
+      .nav {
+        top: auto;
+        bottom: 12px;
+        transform: none;
+      }
+
+      .nav.prev {
+        left: 20px;
+      }
+
+      .nav.next {
+        right: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="deck" data-deck>
+    <!-- Creator Credit (LinkedIn) -->
+    <a class="linkedin-mark" href="https://www.linkedin.com/in/raghunandana-krishnamurthy-664264b7/" target="_blank" rel="noopener" aria-label="Built by Raghunandana KrishnaMurthy Sanur on LinkedIn">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.06c.53-1 1.84-2.2 3.79-2.2C19.7 8 20.45 10.67 20.45 14.14V24h-4v-8.74c0-2.08-.04-4.76-2.9-4.76-2.9 0-3.35 2.27-3.35 4.61V24h-4V8z"/>
+      </svg>
+    </a>
+
+    <!-- Slide 1: The Question -->
+    <section class="slide active" data-slide>
+      <p class="eyebrow">Question 29</p>
+      <h1>An AI Engineer deployed a RAG system and it functioned fine, but after 2 months it started giving bad results. No code change and no data change occurred. What could be the issue?</h1>
+    </section>
+
+    <!-- Slide 2: The Drift Problem -->
+    <section class="slide" data-slide>
+      <p class="eyebrow">The Problem</p>
+      <h2>Why Systems Drift: Dynamic Aliases</h2>
+      
+      <div class="board">
+        <div class="flow-row">
+          <div class="flow-box" style="--box-stroke: var(--color-error-stroke); --box-fill: var(--color-error-fill);">
+            App Calls Alias<br>
+            <code>model="gpt-4o"</code>
+          </div>
+          <div class="flow-arrow" style="--arrow-color: var(--color-error-stroke);">→</div>
+          <div class="flow-box" style="--box-stroke: var(--color-ai-stroke); --box-fill: var(--color-ai-fill);">
+            LLM Gateway<br>
+            (API Resolves Pointer)
+          </div>
+          <div class="flow-arrow" style="--arrow-color: var(--color-error-stroke);">→</div>
+          <div class="flow-box" style="--box-stroke: var(--color-error-stroke); --box-fill: var(--color-error-fill);">
+            Month 1: gpt-4o-2024-05-13<br>
+            Month 2: gpt-4o-2024-08-06 (Drift!)
+          </div>
+        </div>
+
+        <div class="explain">
+          <div class="chip">
+            <strong>Dynamic Aliases</strong>
+            Generic model IDs like <code>gpt-4o</code> automatically point to whichever version the provider currently deems standard.
+          </div>
+          <div class="chip">
+            <strong>Hidden Upgrades</strong>
+            API providers periodically update these alias pointers under the hood to new model snapshots without notifying you.
+          </div>
+          <div class="chip">
+            <strong>Behavioral Shifts</strong>
+            Even minor model updates change prompt sensitivity, formatting rules, and reasoning styles, causing systems to fail.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 3: The Pinned Solution -->
+    <section class="slide" data-slide>
+      <p class="eyebrow">The Solution</p>
+      <h2>The Fix: Immutable Version Pinning</h2>
+      
+      <div class="board">
+        <div class="flow-row">
+          <div class="flow-box" style="--box-stroke: var(--color-success-stroke); --box-fill: var(--color-success-fill);">
+            App Pins ID<br>
+            <code>model="gpt-4o-2024-05-13"</code>
+          </div>
+          <div class="flow-arrow" style="--arrow-color: var(--color-success-stroke);">→</div>
+          <div class="flow-box" style="--box-stroke: var(--color-ai-stroke); --box-fill: var(--color-ai-fill);">
+            LLM Gateway<br>
+            (Fetches Pinned Model)
+          </div>
+          <div class="flow-arrow" style="--arrow-color: var(--color-success-stroke);">→</div>
+          <div class="flow-box" style="--box-stroke: var(--color-success-stroke); --box-fill: var(--color-success-fill);">
+            Month 1 & 2: gpt-4o-2024-05-13<br>
+            (Guaranteed Static Behavior)
+          </div>
+        </div>
+
+        <div class="explain">
+          <div class="chip">
+            <strong>Dated Snapshots</strong>
+            Using specific IDs like <code>gpt-4o-2024-08-06</code> ensures you interact with a locked, unchanging model binary.
+          </div>
+          <div class="chip">
+            <strong>Deterministic Performance</strong>
+            Your outputs remain consistent and stable over time because the underlying neural weights never shift.
+          </div>
+          <div class="chip">
+            <strong>Controlled Migrations</strong>
+            Upgrades are done explicitly by running offline evaluations on golden datasets before updating version pins.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 4: Say It -->
+    <section class="slide" data-slide>
+      <p class="eyebrow">Interview Response</p>
+      <h2>How to Answer in an Interview</h2>
+      <div class="say-line">"If a production RAG system suddenly starts giving bad results with no code or data changes, the first thing I would check is whether we pinned our model versions. 
+
+Using dynamic aliases like gpt-4o is a major risk because API providers periodically update these aliases to point to newer underlying snapshots. These updates can alter prompt alignment, change output formats, or cause regressions on specific tasks.
+
+To prevent this, I always pin model calls to specific, immutable, dated snapshots in production. When we want to upgrade to a newer model version, we treat it as a database migration: we run the new model against a golden evaluation dataset to measure performance and tune our prompts before making the switch in production."</div>
+      <p class="end-note">End: this deck stops here. Use the left arrow to review earlier slides.</p>
+    </section>
+
+    <!-- Nav Buttons -->
+    <button class="nav prev" type="button" aria-label="Previous slide">&lsaquo;</button>
+    <button class="nav next" type="button" aria-label="Next slide">&rsaquo;</button>
+    <div class="progress" aria-live="polite">1 / 4</div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = document.querySelectorAll('[data-slide]');
+      const prevBtn = document.querySelector('.nav.prev');
+      const nextBtn = document.querySelector('.nav.next');
+      const progress = document.querySelector('.progress');
+      let currentIndex = 0;
+
+      function updateSlides() {
+        slides.forEach((slide, index) => {
+          if (index === currentIndex) {
+            slide.classList.add('active');
+          } else {
+            slide.classList.remove('active');
+          }
+        });
+        progress.textContent = `${currentIndex + 1} / ${slides.length}`;
+        
+        // Disable buttons at bounds
+        prevBtn.style.opacity = currentIndex === 0 ? '0.3' : '1';
+        prevBtn.style.pointerEvents = currentIndex === 0 ? 'none' : 'auto';
+        nextBtn.style.opacity = currentIndex === slides.length - 1 ? '0.3' : '1';
+        nextBtn.style.pointerEvents = currentIndex === slides.length - 1 ? 'none' : 'auto';
+      }
+
+      prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+          currentIndex--;
+          updateSlides();
+        }
+      });
+
+      nextBtn.addEventListener('click', () => {
+        if (currentIndex < slides.length - 1) {
+          currentIndex++;
+          updateSlides();
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft' && currentIndex > 0) {
+          currentIndex--;
+          updateSlides();
+        } else if (e.key === 'ArrowRight' && currentIndex < slides.length - 1) {
+          currentIndex++;
+          updateSlides();
+        }
+      });
+
+      // Initial state
+      updateSlides();
+    });
+  </script>
+</body>
+</html>
