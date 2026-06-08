@@ -12,20 +12,85 @@ First, let's understand *why* this happens. Every LLM API call has a hard limit 
 
 There's another problem people miss: even with models that have 128K+ context windows, **LLM quality degrades on very long contexts**. There's a well-documented phenomenon called the "lost in the middle" problem where models tend to underweight information in the middle of a long context and pay more attention to the beginning and end. So even if you could fit everything in, you probably shouldn't.
 
-The solution is proactive context management—don't wait for the API to reject your request. Here are the strategies, from simplest to most sophisticated:
+Instead of trying multiple fragmented solutions, the industry-standard production strategy is **Hybrid Asynchronous Summarization**. This approach combines token counting, sliding windows, and summarization, but critically runs it outside the user's response path to avoid latency spikes.
 
-**Token Counting Before Every Call:** Use a tokenizer (like tiktoken for OpenAI models) to count the tokens in your payload *before* sending it. If you're at 80% of the limit, trigger compression. This simple check alone prevents most production timeouts.
-
-**Sliding Window:** Keep only the last N messages. It's the simplest approach and works well for stateless tasks, but it has an obvious flaw: if a critical piece of information was mentioned early in the conversation (like the user's name, their account number, or a specific constraint), that's now gone.
-
-**Conversation Summarization (the sweet spot):** When the context exceeds your threshold, run the older messages through a fast, cheap LLM (GPT-4o-mini costs a fraction of GPT-4o) and ask it to produce a 2–3 sentence summary capturing the key facts. Replace all those old messages with this summary. You keep the essential context while dramatically cutting the token count. Combine this with a sliding window for the most recent messages—always keep the last 5–10 messages verbatim so the model has crisp short-term context.
-
-**External Memory Store:** For sophisticated applications, extract key entities and facts from the conversation (user preferences, constraints, important decisions made) and store them in an external key-value store or vector database. At the start of each API call, retrieve only the most relevant stored facts for the current query. This lets you maintain "infinite" memory without ever bloating the context window.
+#### How Hybrid Asynchronous Summarization Works:
+- **Verbatim Sliding Window:** Keep the last 10 messages of the conversation entirely verbatim. This ensures the LLM has crisp, immediate short-term context (it knows exactly what was said in the last few turns).
+- **Asynchronous Compaction:** All messages older than the sliding window are sent to a fast, cheap model (like `gpt-4o-mini` or `claude-3-haiku`) to be summarized into a single, cohesive paragraph. This paragraph is prepended to the sliding window as the "Session Summary".
+- **Background Execution (The Latency Fix):** Instead of running this token count and summarization synchronously during the user's request—which adds 2–5 seconds of latency—the application triggers this check *asynchronously in the background* right after returning the current response. When the user sends their next message, the pre-compacted context is loaded instantly from the database.
 
 ### 3. Real-World Example
 A customer support chatbot started failing for long-running sessions—some conversations had 200+ message turns spanning an entire workday. The team implemented a hybrid strategy: they kept the last 10 messages verbatim (sliding window) and used GPT-4o-mini to summarize everything older into a 3-sentence "session summary" that was prepended to every API call. Timeouts dropped from 30% to under 0.5% within a day of the fix.
 
-### 4. How Other Tools and Frameworks Handle This
+### 4. Implementation Example: FastAPI Background Tasks
+To prevent latency spikes on the user's critical path, we can offload the token counting, summarization, and database updates to a background task. Here is a production-ready implementation pattern in Python using FastAPI's `BackgroundTasks` and `tiktoken`:
+
+```python
+import tiktoken
+from fastapi import FastAPI, BackgroundTasks
+from pydantic import BaseModel
+from typing import List, Dict
+
+app = FastAPI()
+tokenizer = tiktoken.encoding_for_model("gpt-4o")
+
+TOKEN_COMPACTION_THRESHOLD = 80000  # Start compacting at 80k tokens
+VERBATIM_MESSAGE_COUNT = 10         # Always keep the last 10 messages untouched
+
+class ChatRequest(BaseModel):
+    session_id: str
+    user_message: str
+
+async def compact_context_background(session_id: str):
+    """
+    Background worker that runs asynchronously after the user's response is sent.
+    Ensures context is pre-compacted for the NEXT turn.
+    """
+    # 1. Fetch current conversation history from database
+    messages = await db.get_conversation_history(session_id)
+    
+    # 2. Count current tokens in the history
+    total_tokens = sum(len(tokenizer.encode(m["content"])) for m in messages)
+    
+    # 3. Trigger compaction if we exceed the safety threshold
+    if total_tokens > TOKEN_COMPACTION_THRESHOLD:
+        # Keep the latest N messages verbatim for short-term flow
+        messages_to_keep = messages[-VERBATIM_MESSAGE_COUNT:]
+        messages_to_summarize = messages[:-VERBATIM_MESSAGE_COUNT]
+        
+        # Call a fast, inexpensive model (e.g., gpt-4o-mini) to summarize the older history
+        summary_text = await call_fast_llm_summarizer(messages_to_summarize)
+        
+        # Build the new compacted history format
+        compacted_messages = [
+            {"role": "system", "content": f"System Summary of early conversation: {summary_text}"}
+        ] + messages_to_keep
+        
+        # 4. Atomically update the session state in the database
+        await db.update_conversation_history(session_id, compacted_messages)
+
+@app.post("/chat")
+async def chat_endpoint(request: ChatRequest, background_tasks: BackgroundTasks):
+    # 1. Fetch pre-compacted history from DB (Instant - no in-flight LLM summarization latency)
+    history = await db.get_conversation_history(request.session_id)
+    
+    # 2. Append the new user query
+    current_payload = history + [{"role": "user", "content": request.user_message}]
+    
+    # 3. Call primary LLM on the critical path
+    response = await call_primary_llm(current_payload)
+    
+    # 4. Persist the user message and model response to the database
+    await db.save_message(request.session_id, role="user", content=request.user_message)
+    await db.save_message(request.session_id, role="assistant", content=response)
+    
+    # 5. Schedule context compaction in the background (out of the request-response loop)
+    background_tasks.add_task(compact_context_background, request.session_id)
+    
+    return {"response": response}
+```
+
+### 5. How Other Tools and Frameworks Handle This
 
 **OpenAI Assistants API (Threads)**
 OpenAI's managed Threads API handles context management automatically. When you use the Assistants API, conversation history is stored server-side in a "thread" and OpenAI's infrastructure decides what to include in each API call — you never manage the token budget yourself. The model silently truncates older messages when the window fills up. The trade-off: you lose control over *what* gets dropped, and there's no transparency about when truncation happens.
@@ -49,8 +114,16 @@ Claude Code's approach is a manual LLM-summarisation trigger with full user visi
 | Mem0 | Structured fact extraction + retrieval | Medium | High |
 | ChatGPT Memory | Persistent facts + session window | Low | Low |
 | Claude Code `/compact` | Manual LLM summarisation | Full | Full |
+| FastAPI / Celery | Asynchronous background summarization | High | High |
 
 The key insight across all tools: **context management is a product decision, not just an engineering one**. Silent truncation is convenient but erodes trust. Manual compaction preserves trust but adds friction. The right choice depends on whether your users care about session continuity more than they care about simplicity.
 
-### 5. This is how I would answer this
-"The first thing I'd do is add proactive token counting before every API call—if we're approaching the context limit, we trigger compression before the timeout happens. My preferred strategy is conversation summarization: once the history gets too long, I run a fast, cheap model to compress the older messages into a short summary and replace them with that. I'd combine that with a sliding window that always preserves the last 10 messages verbatim so recent context is never lost. For power users who have long sessions with critical facts scattered throughout, I'd also explore extracting key entities into an external memory store."
+### 6. This is how I would answer this
+"My go-to solution for context window bloat is **Hybrid Asynchronous Summarization**. 
+
+I would design the system to keep the last 10 messages verbatim for immediate short-term memory, while using a cheap model like `gpt-4o-mini` to summarize older messages into a rolling paragraph. Crucially, to prevent latency spikes on the critical path, I would run this summarization **asynchronously in the background** (using FastAPI's `BackgroundTasks` or a background worker like Celery) after responding to the user. This ensures that when the user sends their next message, the pre-compacted context is already generated and loaded instantly.
+
+*If the interviewer asks about other strategies or trade-offs, I would mention:*
+- **A pure sliding window**: Simple to implement but causes the model to completely forget early conversation details.
+- **An external memory store (like Mem0 or a vector database)**: Excellent for long-term/cross-session key-fact retrieval, but introduces complexity with database lookups and relevance filtering.
+- **Token counting checks**: I'd always keep a basic pre-call token count check (using `tiktoken`) as a safety guardrail to catch anomalies before hitting API limits."
