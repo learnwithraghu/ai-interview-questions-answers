@@ -6,7 +6,7 @@ Curated resources for deeper study on vector database high availability, circuit
 
 ## Official Documentation
 
-- [Pinecone — High Availability & Replicas](https://docs.pinecone.io/guides/architecture/overview) — Serverless multi-AZ by default; pod tier supports configurable read replicas for failover.
+- [Pinecone — High Availability & Replicas](https://docs.pinecone.io/guides/indexes/understanding-indexes) — Serverless multi-AZ by default; pod tier supports configurable read replicas for failover.
 - [Weaviate — Replication Architecture](https://weaviate.io/developers/weaviate/configuration/replication) — Multi-node clustering with configurable replication factors and automatic query re-routing on node failure.
 - [Qdrant — Distributed Mode](https://qdrant.tech/documentation/guides/distributed_deployment/) — Replication factors and write consistency levels (one/quorum/all) borrowed from distributed database design.
 

@@ -30,4 +30,4 @@ Curated resources for deeper study on agent security, prompt injection defence, 
 ## Framework Documentation
 
 - [LangChain Tool Calling](https://python.langchain.com/docs/concepts/tool_calling/) — How LangChain agents invoke tools, including schema validation and callback hooks.
-- [AutoGen Conversable Agent](https://microsoft.github.io/autogen/docs/tutorial/conversable-agent/) — Tutorial on configuring multi-agent conversations with human proxy patterns.
+- [AutoGen Conversable Agent](https://microsoft.github.io/autogen/) — Tutorial on configuring multi-agent conversations with human proxy patterns.
