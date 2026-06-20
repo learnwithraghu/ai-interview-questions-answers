@@ -52,6 +52,10 @@ The answer slug is the filename of the matching `.md` file (without `.md`), whic
 
 ---
 
+## Icons for Provider/Tool Comparisons
+
+Several category_3/category_4 concepts name specific real products (OpenAI, Anthropic, Groq, vLLM, Ollama, Together AI, etc.) rather than generic roles. For those, use the real brand icon per the base skill's "Real Icons for Named Tools/Providers" section — `fetch_icon.py` checks the repo's `references/icons/` cache first and only fetches from Lobe Icons on a genuine miss. Still cap at one icon per box, and only for diagrams that genuinely compare/name specific tools — not as decoration on generic process boxes.
+
 ## Render Command
 
 ```bash

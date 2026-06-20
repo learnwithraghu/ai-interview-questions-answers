@@ -180,3 +180,47 @@ Copy-paste JSON templates for each Excalidraw element type. The `strokeColor` an
 ```
 
 For curves: use 3+ points in `points` array.
+
+## Image (real tool/provider icon)
+
+Don't hand-write these — run `fetch_icon.py` (see SKILL.md's "Real Icons for Named Tools/Providers" section) and paste its output. It prints both pieces below, already filled in:
+
+```json
+{
+  "type": "image",
+  "id": "vllm_icon",
+  "x": 120, "y": 140, "width": 48, "height": 48,
+  "angle": 0,
+  "strokeColor": "transparent",
+  "backgroundColor": "transparent",
+  "fillStyle": "solid",
+  "strokeWidth": 1,
+  "strokeStyle": "solid",
+  "roughness": 0,
+  "opacity": 100,
+  "seed": 90001,
+  "version": 1,
+  "versionNonce": 90002,
+  "isDeleted": false,
+  "groupIds": [],
+  "boundElements": null,
+  "link": null,
+  "locked": false,
+  "fileId": "vllm-color_file",
+  "status": "saved",
+  "scale": [1, 1]
+}
+```
+
+The matching top-level `files` entry (also printed by `fetch_icon.py`):
+```json
+{
+  "vllm-color_file": {
+    "mimeType": "image/svg+xml",
+    "id": "vllm-color_file",
+    "dataURL": "data:image/svg+xml;base64,...",
+    "created": 1700000000000,
+    "lastRetrieved": 1700000000000
+  }
+}
+```

@@ -380,6 +380,32 @@ Choose shape based on what it represents—or use no shape at all:
 
 ---
 
+## Real Icons for Named Tools/Providers
+
+The shape-meaning table above treats "icons decorating text" as a bad pattern — that's about icons used as generic decoration. It does not apply to a different case: a diagram that names actual, specific products or companies (e.g. comparing OpenAI vs Groq vs vLLM). In that case, the real brand mark IS more concrete and isomorphic than a colored box with a name typed into it — same principle as the Research Mandate and Evidence Artifacts sections: show the real thing, not a generic placeholder.
+
+Use a real icon, sparingly, only when:
+- The diagram specifically names a recognizable product/company (not a generic role like "Process" or "Database")
+- The icon helps recognition rather than just filling space — one per box max
+
+**Sourcing:** Icons come from [Lobe Icons](https://github.com/lobehub/lobe-icons), cached locally in `references/icons/` and mapped by name in `references/icon_map.json`. **Always check the repo cache first** — never re-fetch something already cached.
+
+```bash
+cd .agent/excalidraw-diagram-skill/references
+uv run python fetch_icon.py "vllm" --x 120 --y 140 --size 48
+```
+
+This prints a ready-to-paste `files` entry and `image` element — splice both into the JSON you're hand-authoring (per the no-generator-script rule above). If the name isn't in `icon_map.json` but is a well-known AI/LLM tool, check whether Lobe Icons has it before giving up:
+
+```bash
+curl -sL "https://api.github.com/repos/lobehub/lobe-icons/contents/packages/static-svg/icons" \
+  | python3 -c "import json,sys; print([x['name'] for x in json.load(sys.stdin) if 'TERM' in x['name'].lower()])"
+```
+
+If found, add `"name": "slug"` (filename minus `.svg`, prefer the `-color` variant) to `icon_map.json` — this grows the cache for every future diagram. If genuinely unavailable, leave that node as a labeled shape instead — don't fake an icon.
+
+---
+
 ## Color as Meaning
 
 Colors encode information, not decoration. Every color choice should come from `references/color-palette.md` — the semantic shape colors, text hierarchy colors, and evidence artifact colors are all defined there.
@@ -485,7 +511,7 @@ You cannot judge a diagram from JSON alone. After generating or editing the Exca
 ### How to Render
 
 ```bash
-cd .claude/skills/excalidraw-diagram/references && uv run python render_excalidraw.py <path-to-file.excalidraw>
+cd .agent/excalidraw-diagram-skill/references && uv run python render_excalidraw.py <path-to-file.excalidraw>
 ```
 
 This outputs a PNG next to the `.excalidraw` file. Then use the **Read tool** on the PNG to actually view it.
@@ -537,7 +563,7 @@ The loop is done when:
 ### First-Time Setup
 If the render script hasn't been set up yet:
 ```bash
-cd .claude/skills/excalidraw-diagram/references
+cd .agent/excalidraw-diagram-skill/references
 uv sync
 uv run playwright install chromium
 ```
