@@ -56,7 +56,7 @@ Question bank for the AI Engineer Interview Bootcamp.
 
 ### Section 4: Modern AI Stack & Tooling
 
-20. **[Easy]** What are the main differences between using a managed LLM API (like OpenAI GPT-4 or Anthropic Claude) versus accessing an open-weight model (like Llama 3) hosted on a cloud provider like Groq or Together AI?
+20. **[Easy]** What is the difference between offline evals and online evals for an LLM-powered feature? When in the development lifecycle would you use each?
 
 21. **[Easy]** Explain the role of GenAI orchestration frameworks like LangChain or LlamaIndex. In what scenarios might you choose *not* to use them and write custom code instead?
 

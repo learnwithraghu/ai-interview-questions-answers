@@ -42,7 +42,7 @@ Below is the curriculum structure, including the engaging lecture titles that co
 ### Section 4: Modern AI Stack & Tooling
 *Navigating the rapidly evolving ecosystem of frameworks, databases, and deployment platforms.*
 
-* **Lecture 20:** Managed API Versus Open Weight
+* **Lecture 20:** Online Evals Versus Offline Evals
 * **Lecture 21:** When To Skip LangChain Frameworks
 * **Lecture 22:** Dedicated Vector DB Versus pgvector
 * **Lecture 23:** LLM Observability Tools And Metrics
