@@ -56,7 +56,7 @@ Question bank for the AI Engineer Interview Bootcamp.
 
 ### Section 4: Modern AI Stack & Tooling
 
-20. **[Easy]** What is the difference between offline evals and online evals for an LLM-powered feature? When in the development lifecycle would you use each?
+20. **[Easy]** Open-source agent frameworks (e.g., CrewAI, Pydantic AI) and cloud-native agent platforms (e.g., OpenAI's Agents SDK, AWS Bedrock Agents) take fundamentally different approaches to building AI agents. Which one are you using in your own projects, and what trade-offs drove that choice?
 
 21. **[Easy]** Explain the role of GenAI orchestration frameworks like LangChain or LlamaIndex. In what scenarios might you choose *not* to use them and write custom code instead?
 
