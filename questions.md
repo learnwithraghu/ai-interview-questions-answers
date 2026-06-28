@@ -56,7 +56,7 @@ Question bank for the AI Engineer Interview Bootcamp.
 
 ### Section 4: Modern AI Stack & Tooling
 
-20. **[Easy]** Open-source agent frameworks (e.g., CrewAI, Pydantic AI) and cloud-native agent platforms (e.g., OpenAI's Agents SDK, AWS Bedrock Agents) take fundamentally different approaches to building AI agents. Which one are you using in your own projects, and what trade-offs drove that choice?
+20. **[Medium]** An MCP server can either hide unauthorized tools from `tools/list` so the model never sees them, or expose all tools and reject unauthorized calls at execution time. When would you choose each approach, and what are the security implications for the LLM?
 
 21. **[Easy]** Explain the role of GenAI orchestration frameworks like LangChain or LlamaIndex. In what scenarios might you choose *not* to use them and write custom code instead?
 
